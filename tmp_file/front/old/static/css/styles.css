@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Staatliches&display=swap");
+body {
+  background-color: #1493FC;
+}
+hr {
+  background-color: #1493FC;
+}
+.main-container {
+  margin: auto;
+  width: 50%;
+  height: 80%;
+  padding: 10px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 6px 2px 30px 0px rgba(0, 0, 0, 0.75);
+  font-family: "DM Sans", sans-serif;
+  word-wrap: break-word;
+  color: #1493FC;
+}
+
+input[type="file"] {
+  font-family: "DM Sans", sans-serif;
+  word-wrap: break-word;
+}
+h1 {
+  font-size: 70px;
+  font-family: "Staatliches", cursive;
+  color: #1493FC;
+}
+
+.upload-img-div {
+  padding: 5%;
+}
+
+.btn{
+  background-color: #1493FC;
+  color: #fff;
+}

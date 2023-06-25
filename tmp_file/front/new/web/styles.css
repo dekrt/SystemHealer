@@ -1,0 +1,93 @@
+body {
+  height: 100vh;
+  font-family: 'Microsoft YaHei';
+  transition: .1s;
+}
+
+a {
+  color: #0063cd;
+  transition: .2s;
+}
+
+a:hover {
+  color: #3c20b9;
+  transition: .2s;
+}
+
+.my-nav {
+  background-color: rgb(252, 252, 252);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding-left: 50px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.nav-link {
+  padding-right: 50px;
+}
+
+.my-logo {
+  height: 70px;
+  margin-right: 40px;
+}
+
+.my-title {
+  font-size: 23px;
+  padding: 0;
+  margin: 0;
+  color: #007bff;
+}
+
+.my-left {
+  margin-top: 5px;
+  padding-top: 40px;
+  text-align: right;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.my-main {
+  padding-top: 40px;
+}
+
+.healer {
+  word-wrap: break-word;
+  font-size: 70px;
+  font-family: "Staatliches", cursive;
+  color: #1493FC;
+}
+
+.wenhao {
+  width: 20px;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.upload {
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin: auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.figs-container {
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding-left: 40px;
+  padding-top: 30px;
+  margin-top: 30px;
+}
+
+.my-footer {
+  height: 10vh;
+  background-color: #a8d2ff;
+  color: white;
+  padding: 15px;
+  margin-top: 30px;
+  text-align: center;
+}
