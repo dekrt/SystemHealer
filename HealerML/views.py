@@ -7,6 +7,7 @@ from . import model
 # Change the extensions to accept only CSV files
 extensions = ['.csv']
 
+
 def index(request):
     if request.method == 'POST' and request.FILES['data']:
         data_file = request.FILES['data']
@@ -18,20 +19,24 @@ def index(request):
             file_name = uploaded_file_url.split("/")[2]
 
             input_path = os.getcwd() + uploaded_file_url
+            basic_path = os.getcwd() + "/uploads/" + file_name.split(".")[0]
             output_path = os.getcwd() + "/uploads/" + file_name.split(".")[0] + "_processed.csv"
 
             # remover.process(input_path, output_path)
             model.preprocess(input_path, input_path)
-            model.Resnet(input_path, output_path)
+            model.train(input_path, basic_path, output_path)
+            uploads_path = uploaded_file_url.split(".")[0]
             data_file_path = uploaded_file_url.split(".")[0] + "_processed.csv"
             download_link = '/download/' + os.path.basename(output_path)
             model_download_link = '/download_model/' + os.path.basename(os.getcwd() + "/model/resnet.pt")
-            return render(request, 'HealerML/index.html', {"data_file_path": data_file_path, 
-                                                            "download_link": download_link,
-                                                            "model_download_link": model_download_link})
+            return render(request, 'HealerML/index.html', {"data_file_path": data_file_path,
+                                                           "download_link": download_link,
+                                                           "model_download_link": model_download_link,
+                                                           "uploads_path": uploads_path})
         else:
             return HttpResponse("Only Allowed extensions are {}".format(extensions))
     return render(request, 'HealerML/index.html')
+
 
 def data(request):
     if request.method == 'POST' and request.POST['data']:
@@ -48,10 +53,11 @@ def data(request):
 
         # remover.process(input_path, output_path)
         model.preprocess(input_path, input_path)
-        model.Resnet(input_path, output_path)
+        model.train(input_path, output_path)
         data_file_path = "/uploads/" + data_file_name.split(".")[0] + "_processed.csv"
         return HttpResponse(request.get_host() + data_file_path)
-    
+
+
 def download(request, file_name):
     file_path = os.getcwd() + "/uploads/" + file_name
     if os.path.exists(file_path):
@@ -60,7 +66,8 @@ def download(request, file_name):
         return response
     else:
         return HttpResponse("Sorry file not found.")
-    
+
+
 def download_model(request, file_name):
     # file_path = os.path.join(os.getcwd(), "/model/", file_name)
     file_path = os.getcwd() + "/model/" + file_name
@@ -68,4 +75,3 @@ def download_model(request, file_name):
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=file_name)
     else:
         return HttpResponse("Sorry, model file not found.")
-

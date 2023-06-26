@@ -15,6 +15,9 @@ from imblearn.ensemble import BalancedBaggingClassifier
 from sklearn.tree import DecisionTreeClassifier
 import pandas as pd
 from sklearn.impute import KNNImputer
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+from sklearn.metrics import classification_report
 
 def preprocess(input_path, output_path):
     # 读取CSV文件
@@ -36,7 +39,7 @@ def preprocess(input_path, output_path):
     data_filled_df.to_csv(output_path, index=False)
 
 
-def Resnet(input_path, output_path):
+def train(input_path, basic_path, output_path):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Prepare data
     data = np.loadtxt(input_path, delimiter=',', skiprows=1)
@@ -49,16 +52,16 @@ def Resnet(input_path, output_path):
     train_data = scaler.fit_transform(train_data)
     val_data = scaler.transform(val_data)
 
-    #sampler = TomekLinks()
-    #train_data, train_label = sampler.fit_resample(train_data, train_label)
-    #class_weights = compute_class_weight('balanced', classes=np.unique(train_label), y=train_label)
+    # sampler = SMOTE()
+    # train_data, train_label = sampler.fit_resample(train_data, train_label)
+    class_weights = compute_class_weight('balanced', classes=np.unique(train_label), y=train_label)
     train_data = torch.Tensor(train_data)
     val_data = torch.Tensor(val_data)
     train_label = torch.LongTensor(train_label)
     val_label = torch.LongTensor(val_label)
-    #pdb.set_trace()
+    # pdb.set_trace()
 
-    #class_weights_tensor = torch.tensor(class_weights, dtype=torch.float32).to(device)
+    class_weights_tensor = torch.tensor(class_weights, dtype=torch.float32).to(device)
 
     # ResNet18 model
     class BasicBlock(nn.Module):
@@ -85,7 +88,7 @@ def Resnet(input_path, output_path):
             return out
 
     class ResNet(nn.Module):
-        def __init__(self, input_dim, num_classes, num_blocks):
+        def __init__(self, input_dim, num_classes, num_blocks, dropout_rate=0.5):
             super(ResNet, self).__init__()
             self.in_channels = 64
 
@@ -96,46 +99,63 @@ def Resnet(input_path, output_path):
             self.layer3 = self._make_layer(256, num_blocks[2], stride=2)
             self.layer4 = self._make_layer(512, num_blocks[3], stride=2)
             self.linear = nn.Linear(512, num_classes)
+            self.dropout = nn.Dropout(p=dropout_rate)
 
         def _make_layer(self, out_channels, num_blocks, stride):
-            strides = [stride] + [1]*(num_blocks-1)
+            strides = [stride] + [1] * (num_blocks - 1)
             layers = []
             for stride in strides:
                 layers.append(BasicBlock(self.in_channels, out_channels, stride))
                 self.in_channels = out_channels
             return nn.Sequential(*layers)
 
-        def forward(self, x):
+        def forward(self, x, return_features=False):
             x = F.relu(self.bn1(self.conv1(x)))
             x = self.layer1(x)
             x = self.layer2(x)
             x = self.layer3(x)
             x = self.layer4(x)
-            x = F.avg_pool1d(x, x.size(2))
-            x = x.view(x.size(0), -1)
+            features = F.avg_pool1d(x, x.size(2))
+            x = features.view(x.size(0), -1)
             x = self.linear(x)
-            return x
 
-    def ResNet18(input_dim, num_classes):
-        return ResNet(input_dim, num_classes, [2, 2, 2, 2])
+            if return_features:
+                return features.squeeze(2).detach().cpu().numpy()
+            else:
+                return x
+
+    def ResNet18(input_dim, num_classes, dropout_rate=0.5):
+        return ResNet(input_dim, num_classes, [2, 2, 2, 2], dropout_rate)
 
     def save_checkpoint(model, optimizer, epoch, path):
-        torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict()}, path)
+        torch.save(
+            {'epoch': epoch, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict()},
+            path)
 
     input_size = train_data.shape[1]
-    #pdb.set_trace()
+    # pdb.set_trace()
     num_classes = 6
-    model = ResNet18(input_size, num_classes).to(device)
+    dropout_rate = 0.6906059730252032
+    weight_decay = 1e-06
+    num_epochs = 60
+    lr = 0.007325438539211768
+
+    model = ResNet18(input_size, num_classes, dropout_rate=dropout_rate).to(device)
 
     # Loss and optimizer
-    #criterion = nn.CrossEntropyLoss(weight=class_weights_tensor)
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    criterion = nn.CrossEntropyLoss(weight=class_weights_tensor)
+    # criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
     # Training
-    num_epochs = 10
+
     batch_size = 32
+    train_losses = []
+    val_losses = []
     for epoch in range(num_epochs):
+        model.train()
+        running_train_loss = 0
+        num_batches = 0
         permutation = torch.randperm(train_data.size()[0])
         for i in range(0, train_data.size()[0], batch_size):
             indices = permutation[i:i + batch_size]
@@ -150,19 +170,95 @@ def Resnet(input_path, output_path):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            running_train_loss += loss.item()
+            num_batches += 1
+
+        train_loss = running_train_loss / num_batches
+        train_losses.append(train_loss)
 
         print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}")
         current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        # save_checkpoint(model, optimizer, epoch, f'./__model/resnet_epoch_{epoch}_time{current_time}.pt')
-    # Evaluation
+        # save_checkpoint(model, optimizer, epoch, f'./模型/resnet_epoch_{epoch}_time{current_time}.pt')
+        # Evaluation
+        model.eval()
+        running_val_loss = 0
+        num_val_batches = 0
         with torch.no_grad():
-            val_data_unsqueezed =val_data.unsqueeze(1).to(device)  # Add a dimension for the channel and move to device
+            val_data_unsqueezed = val_data.unsqueeze(1).to(device)  # Add a dimension for the channel and move to device
             val_label = val_label.to(device)
             outputs = model(val_data_unsqueezed)
             _, predicted = torch.max(outputs.data, 1)
             accuracy = (predicted == val_label).sum().item() / val_label.size(0)
             print(f"Validation Accuracy at Epoch {epoch + 1}: {accuracy:.4f}")
+            running_val_loss += criterion(outputs, val_label).item()
+            num_val_batches += 1
+
+            val_loss = running_val_loss / num_val_batches
+            val_losses.append(val_loss)
+            val_features = model(val_data_unsqueezed, return_features=True)
+            if epoch == num_epochs - 1:
+                val_features_tsne = TSNE(n_components=2, random_state=33, init='pca', learning_rate='auto').fit_transform(
+                                        val_features)
+
+    font = {"color": "darkred",
+            "size": 13,
+            "family": "serif"}
+
+    plt.style.use("dark_background")
+    plt.figure(figsize=(9, 8))
+
+    plt.scatter(val_features_tsne[:, 0], val_features_tsne[:, 1], c=val_label.cpu().numpy(), alpha=0.6,
+                cmap=plt.cm.get_cmap('rainbow', num_classes))
+    plt.title("t-SNE", fontdict=font)
+    cbar = plt.colorbar(ticks=range(num_classes))
+    cbar.set_label(label='Class label', fontdict=font)
+    plt.clim(-0.5, num_classes - 0.5)
+    plt.tight_layout()
+
+    plt.savefig(basic_path + f'_tsne.png', dpi=300)
+
+    # Save predicted labels to a CSV file
     predicted_labels = predicted.cpu().numpy()
-    val_ids = np.arange(len(val_label))
-    # np.savetxt(output_path, np.column_stack((val_ids, predicted_labels)), delimiter=',', header='id,label', comments='')
-    np.savetxt(output_path, np.column_stack((val_ids, predicted_labels)), fmt='%i', delimiter=',', header='id,label', comments='')
+    val_ids = np.arange(len(val_label)) + 1
+    np.savetxt(output_path, np.column_stack((val_ids, predicted_labels)), fmt='%i', delimiter=',',
+               header='id,label', comments='')
+    unique_labels, counts = np.unique(predicted_labels, return_counts=True)
+    label_count_dict = dict(zip(unique_labels, counts))
+    plt.figure()
+    # 绘制饼状图
+    plt.style.use('default')
+    fig, ax = plt.subplots()
+    ax.pie(counts, labels=unique_labels, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    plt.title("Predicted Class Distribution")
+    plt.savefig(basic_path + "_pie_chart.png", dpi=300)
+
+    epochs = np.arange(1, num_epochs + 1)
+    plt.figure()
+    plt.style.use('classic')
+    plt.plot(epochs, train_losses, label='Train Loss')
+    plt.plot(epochs, val_losses, label='Validation Loss')
+
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Loss Curves')
+    plt.legend()
+
+    plt.savefig(basic_path + "_loss_curves.png", dpi=300)
+
+    # 生成分类报告
+    report = classification_report(val_label.cpu().numpy(), predicted.cpu().numpy(), output_dict=True)
+
+    # 从分类报告中提取精确率、召回率和 F1 分数
+    macro_precision = report['macro avg']['precision']
+    macro_recall = report['macro avg']['recall']
+    macro_f1 = report['macro avg']['f1-score']
+
+    # 打印 MacroF1
+    print("MacroF1:", macro_f1)
+    # 将结果写入文件
+    # with open("results.txt", "w") as f:
+    #     f.write("MacroF1: {}\n".format(macro_f1))
+    #     f.write("\nClassification Report:\n")
+    #     f.write(classification_report(val_label.cpu().numpy(), predicted.cpu().numpy()))

@@ -26,7 +26,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <p class="my-title">系统治愈师 | System Healer<span class="sr-only">(current)</span></a>
+          <p class="my-title">系统治愈师 | System Healer<span class="sr-only">(current)</span></p>
         </li>
         <li>
           <p style="margin: 0; padding-top: 10px; padding-left: 30px; color: #0055af;">———基于机器学习的分布式系统故障诊断系统</p>
@@ -86,7 +86,7 @@
               <center>
                 <input class="btn btn-primary" style="margin-top: 10px; margin-bottom: 30px;" type="file" name="data">
                 <br>
-                <button type="button submit" class="btn btn-primary">点击训练</button>  
+                <button type="button submit" class="btn btn-primary" onclick="showLoadingModal()">点击训练</button>
               </center>
             </form>
             {% if data_file_path %}
@@ -129,7 +129,7 @@
             <div class="row">
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">图片说明</p>
-                <img src="{% static 'img/image.jpg' %}" alt="图片3" class="img-fluid" style="width: 400px;">
+                <img src="{{ uploads_path }}_tsne.png" alt="图片3" class="img-fluid" style="width: 400px;">
               </div>
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">图片说明</p>
