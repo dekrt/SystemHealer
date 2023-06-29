@@ -1,5 +1,5 @@
 import timm
-from torch.nn import Linear
+# from torch.nn import Linear
 import torch
 import torch.nn as nn
 import torch.optim as optim
