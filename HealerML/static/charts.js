@@ -53,7 +53,7 @@ var chart = echarts.init(document.getElementById('line chart'));
 // 配置图表选项
 var option = {
     title: {
-        text: '折线图示例',
+        text: '训练集 | 验证集Loss',
         left: 'center',
     },
     tooltip: {

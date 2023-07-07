@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark my-nav">
+  <nav class="navbar navbar-expand-lg my-nav">
     <!-- <a class="navbar-brand" href="#">Logo</a> -->
     <img src="{% static 'img/icon.png' %}" class="my-logo">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -25,92 +25,103 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <p class="my-title">系统治愈师 | System Healer<span class="sr-only">(current)</span></p>
+        <li>
+          <a class="my-link">首页</a>
         </li>
         <li>
-          <p style="margin: 0; padding-top: 10px; padding-left: 30px; color: #0055af;">———基于机器学习的分布式系统故障诊断系统</p>
+          <a class="my-link">技术文档</a>
+        </li>
+        <li>
+          <a class="my-link">算法描述</a>
+        </li>
+        <li class="nav-item active">
+          <!-- <p class="my-title">系统治愈师 | System Healer<span class="sr-only">(current)</span></p> -->
+        </li>
+        <li>
+          <!-- <p style="margin: 0; padding-top: 10px; padding-left: 30px; color: #0055af;">———基于机器学习的分布式系统故障诊断系统</p> -->
         </li>
       </ul>
     </div>
   </nav>
-  <div class="container-fluid">
+  <div class="container-fluid my-out">
     <div class="row">
-      <!-- 左导航栏 -->
-      <nav class="col-md-2 d-none d-md-block sidebar my-left">
-        <div class="left">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">项目介绍</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">算法描述</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">团队简介</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
       <!-- 右主要内容栏 -->
-      <main role="main" class="col-md-10 ml-sm-auto my-main">
+      <!-- <div class="col-md-6"></div> -->
+      <main role="main" class="col-md-12 ml-sm-auto my-main">
         <div class="container">
-          <div class="upload container">
-            <h1 class="healer">SYSTEM HEALER</h1>
-            <!-- tip begin -->
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">点我显示提示信息</button> -->
-            <img src="{% static 'img/bangzhu.png' %}" class="wenhao" data-toggle="modal" data-target="#myModal">
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">输入文件提示信息</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p>输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">好的</button>
-                  </div>
+          <div class="upload container row">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="my-left-main">
+                  <!-- <h1 class="he
+                    aler">SYSTEM HEALER</h1> -->
+                  <img src="{% static 'img/left.png' %}" class="biglogo">
+                  <h1 style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 50px; color: #454545;">
+                    系统故障诊断系统</h1>
                 </div>
               </div>
-            </div>
-            <!-- tip end -->
-            <form method="post" enctype="multipart/form-data">
-              <center>
-                <input class="btn btn-primary" style="margin-top: 10px; margin-bottom: 30px;" type="file" name="data">
-                <br>
-                <button type="button submit" class="btn btn-primary" onclick="showLoadingModal()">点击训练</button>
-              </center>
-            </form>
-            {% if data_file_path %}
-            <hr>
-            <h5>Process Result :
-            </h5>
-            <a href="{{ download_link }}">Download processed data</a>
-            <br>
-            <a href="{{ model_download_link }}">Download Model</a>
-            {% endif %}
-            <!-- waiting begin -->
-            <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-body text-center" style="padding-top: 40px;">
-                    <div class="spinner-border" role="status">
-                      <span class="sr-only">Loading...</span>
+              <div class="col-md-6">
+                <div class="my-right-main" style="text-align: center;">
+                  <!-- <h1 class="healer">SYSTEM HEALER</h1> -->
+                  <img src="{% static 'img/icon.png' %}" class="biglogo">
+                  <!-- tip begin -->
+                  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">点我显示提示信息</button> -->
+                  <img src="{% static 'img/bangzhu.png' %}" class="wenhao" data-toggle="modal" data-target="#myModal"
+                    style="margin: 0 auto;">
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="myModalLabel">输入文件提示信息</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">好的</button>
+                        </div>
+                      </div>
                     </div>
-                    <p style="padding-top: 20px;">正在训练模型并预测</p>
                   </div>
+                  <!-- tip end -->
+                  <form method="post" enctype="multipart/form-data">
+                    <center>
+                      <input class="btn btn-primary"
+                        style="margin-top: 10px; margin-bottom: 30px; background-color: #0f70e6; border-radius: 20px;"
+                        type="file" name="data">
+                      <br>
+                      <button type="button submit" class="btn btn-primary my-btn"
+                        onclick="showLoadingModal()">点击训练</button>
+                    </center>
+                  </form>
+                  {% if data_file_path %}
+                  <hr>
+                  <h5>Process Result :
+                  </h5>
+                  <a href="{{ download_link }}">Download processed data</a>
+                  <br>
+                  <a href="{{ model_download_link }}">Download Model</a>
+                  {% endif %}
+                  <!-- waiting begin -->
+                  <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body text-center" style="padding-top: 40px;">
+                          <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <p style="padding-top: 20px;">正在训练模型并预测</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- waiting end -->
                 </div>
               </div>
             </div>
-            <!-- waiting end -->
           </div>
           <div class="figs-container">
             <!-- <h3 style="margin-top: 30px;">生成图片</h3>
@@ -118,24 +129,27 @@
             <!-- fig begin -->
             <div class="row">
               <div class="col-md-6">
-                <!-- <img src="img/icon.jpg" alt="图片1" class="img-fluid"> -->
                 <div id="pie chart" style="width: 600px; height: 400px;"></div>
               </div>
-              <div class="col-md-6">
-                <!-- <img src="img/icon.jpg" alt="图片2" class="img-fluid"> -->
-                <div id="line chart" style="width: 500px; height: 400px;"></div>
+              {% if not data_file_path %}
+              <div class="col-md-6" style="text-align: center;">
+                <p style="padding-top: 10px;">分类结果可视化</p>
+                <img src="{% static 'img/image.jpg' %}" alt="图片3" class="img-fluid" style="width: 400px;">
               </div>
-            </div>
-            <div class="row">
+              {% endif %}
+
+              {% if data_file_path %}
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">图片说明</p>
                 <img src="{{ uploads_path }}_tsne.png" alt="图片3" class="img-fluid" style="width: 400px;">
               </div>
-              <div class="col-md-6" style="text-align: center;">
-                <p style="padding-top: 10px;">图片说明</p>
-                <img src="{% static 'img/icon.jpg' %}" alt="图片4" class="img-fluid">
-              </div>
+              {% endif %}
             </div>
+
+            <div class="">
+              <div id="line chart" style="width: 1000px; height: 400px; margin-top: 40px;"></div>
+            </div>
+
           </div>
           <!-- fig end -->
         </div>

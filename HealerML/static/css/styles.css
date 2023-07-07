@@ -4,19 +4,9 @@ body {
   transition: .1s;
 }
 
-a {
-  color: #0063cd;
-  transition: .2s;
-}
-
-a:hover {
-  color: #3c20b9;
-  transition: .2s;
-}
-
 .my-nav {
-  background-color: rgb(252, 252, 252);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(195, 195, 195, 0.3);
   padding-left: 50px;
   padding-top: 0;
   padding-bottom: 0;
@@ -28,7 +18,6 @@ a:hover {
 
 .my-logo {
   height: 70px;
-  margin-right: 40px;
 }
 
 .my-title {
@@ -49,6 +38,10 @@ a:hover {
   padding-top: 40px;
 }
 
+.biglogo {
+  width: 400px;
+}
+
 .healer {
   word-wrap: break-word;
   font-size: 70px;
@@ -63,9 +56,8 @@ a:hover {
 }
 
 .upload {
-  background-color: #fdfdfd;
+  background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   margin: auto;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -90,4 +82,42 @@ a:hover {
   padding: 15px;
   margin-top: 30px;
   text-align: center;
+}
+
+.my-link {
+  color: #454545;
+  padding: 24px;
+  transition: .4s;
+}
+
+a:hover {
+  color: #fccb36;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.my-out {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.my-left-main {
+  padding: 40px;
+  padding-top: 0px;
+}
+
+.my-right-main {
+  padding: 40px;
+  margin-top: 170px;
+  border-radius: 40px;
+  /* box-shadow: 0 6px 6px rgba(130, 130, 130, 0.3); */
+  box-shadow: rgba(138, 138, 138, 0.12) 0px 10px 8px 0px, rgba(167, 167, 167, 0.32) 0px 2px 16px 0px;
+  background-color: #ffffff;
+}
+
+.my-btn {
+  border-radius: 20px;
+  width: 96px;
+  height: 32px;
 }
