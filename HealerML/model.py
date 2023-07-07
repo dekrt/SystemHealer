@@ -216,7 +216,6 @@ def train(input_path, basic_path, output_path):
     cbar.set_label(label='Class label', fontdict=font)
     plt.clim(-0.5, num_classes - 0.5)
     plt.tight_layout()
-
     plt.savefig(basic_path + f'_tsne.png', dpi=300)
 
     # Save predicted labels to a CSV file
@@ -226,39 +225,6 @@ def train(input_path, basic_path, output_path):
                header='id,label', comments='')
     unique_labels, counts = np.unique(predicted_labels, return_counts=True)
     label_count_dict = dict(zip(unique_labels, counts))
-    plt.figure()
-    # 绘制饼状图
-    plt.style.use('default')
-    fig, ax = plt.subplots()
-    ax.pie(counts, labels=unique_labels, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-    plt.title("Predicted Class Distribution")
-    plt.savefig(basic_path + "_pie_chart.png", dpi=300)
-
-    epochs = np.arange(1, num_epochs + 1)
-    plt.figure()
-    plt.style.use('classic')
-    plt.plot(epochs, train_losses, label='Train Loss')
-    plt.plot(epochs, val_losses, label='Validation Loss')
-
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.title('Loss Curves')
-    plt.legend()
-
-    plt.savefig(basic_path + "_loss_curves.png", dpi=300)
-
-    # 生成分类报告
-    report = classification_report(val_label.cpu().numpy(), predicted.cpu().numpy(), output_dict=True)
-
-    # 从分类报告中提取精确率、召回率和 F1 分数
-    macro_precision = report['macro avg']['precision']
-    macro_recall = report['macro avg']['recall']
-    macro_f1 = report['macro avg']['f1-score']
-
-    # 打印 MacroF1
-    print("MacroF1:", macro_f1)
-    print(label_count_dict)
     result = {"train_losses": train_losses, "val_losses": val_losses, "label_counts": label_count_dict}
     return result
