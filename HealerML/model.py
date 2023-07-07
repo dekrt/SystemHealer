@@ -225,6 +225,6 @@ def train(input_path, basic_path, output_path):
                header='id,label', comments='')
     unique_labels, counts = np.unique(predicted_labels, return_counts=True)
     label_count_dict = dict(zip(unique_labels, counts))
-
+    label_count_dict = list(label_count_dict.values())
     result = {"train_losses": train_losses, "val_losses": val_losses, "label_counts": label_count_dict}
     return result

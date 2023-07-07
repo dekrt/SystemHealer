@@ -32,7 +32,11 @@ def index(request):
             return render(request, 'HealerML/index.html', {"data_file_path": data_file_path,
                                                            "download_link": download_link,
                                                            "model_download_link": model_download_link,
-                                                           "uploads_path": uploads_path})
+                                                           "uploads_path": uploads_path,
+                                                           "train_loss": result["train_losses"],
+                                                           "val_loss": result["val_losses"],
+                                                           "label_counts": result["label_counts"]
+                                                           })
         else:
             return HttpResponse("Only Allowed extensions are {}".format(extensions))
     return render(request, 'HealerML/index.html')

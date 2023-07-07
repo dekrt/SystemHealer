@@ -1,6 +1,7 @@
 // < !--饼状图 begin-- >
 // 初始化 ECharts 实例
 var chart = echarts.init(document.getElementById('pie chart'));
+var label_counts = JSON.parse('{{ label_counts|escapejs }}');
 
 // 配置图表选项
 var option = {
@@ -25,11 +26,11 @@ var option = {
             radius: '55%',
             center: ['50%', '60%'],
             data: [
-                { value: 335, name: '类别1' },
-                { value: 310, name: '类别2' },
-                { value: 234, name: '类别3' },
-                { value: 135, name: '类别4' },
-                { value: 1548, name: '类别5' }
+                { value: label_counts[0], name: '类别1' },
+                { value: label_counts[1], name: '类别2' },
+                { value: label_counts[2], name: '类别3' },
+                { value: label_counts[3], name: '类别4' },
+                { value: label_counts[4], name: '类别5' }
             ],
             itemStyle: {
                 emphasis: {
@@ -49,8 +50,14 @@ chart.setOption(option);
 // 折线图 begin
 // 初始化 ECharts 实例
 var chart = echarts.init(document.getElementById('line chart'));
-
 // 配置图表选项
+var train_loss = JSON.parse('{{ train_loss|escapejs }}');
+var val_loss = JSON.parse('{{ val_loss|escapejs }}');
+var count = [];
+for(var i = 1; i <= train_loss.length; i++) {
+    count.push(i);
+}
+
 var option = {
     title: {
         text: '训练集 | 验证集Loss',
@@ -66,7 +73,8 @@ var option = {
     },
     xAxis: {
         type: 'category',
-        data: ['A', 'B', 'C', 'D', 'E'],
+        // data: ['A', 'B', 'C', 'D', 'E'],
+        data: count,
         axisLabel: {
             interval: 0  // 强制显示所有标签
         }
@@ -78,12 +86,14 @@ var option = {
         {
             name: '训练集Loss',
             type: 'line',
-            data: [10, 20, 30, 40, 50]
+            // data: [10, 20, 30, 40, 50]
+            data: train_loss
         },
         {
             name: '验证集Loss',
             type: 'line',
-            data: [20, 40, 10, 50, 30]
+            // data: [20, 40, 10, 50, 30]
+            data: val_loss
         }
     ]
 };
