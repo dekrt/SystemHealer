@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.metrics import classification_report
 
+
 def preprocess(input_path, output_path):
     # 读取CSV文件
     data = pd.read_csv(input_path)
@@ -46,7 +47,7 @@ def train(input_path, basic_path, output_path):
     y = data[:, -1]
     X = data[:, 1:-1]
 
-    train_data,val_data, train_label, val_label = train_test_split(X, y, test_size=0.2, random_state=42)
+    train_data, val_data, train_label, val_label = train_test_split(X, y, test_size=0.2, random_state=42)
 
     scaler = StandardScaler()
     train_data = scaler.fit_transform(train_data)
@@ -197,8 +198,9 @@ def train(input_path, basic_path, output_path):
             val_losses.append(val_loss)
             val_features = model(val_data_unsqueezed, return_features=True)
             if epoch == num_epochs - 1:
-                val_features_tsne = TSNE(n_components=2, random_state=33, init='pca', learning_rate='auto').fit_transform(
-                                        val_features)
+                val_features_tsne = TSNE(n_components=2, random_state=33, init='pca',
+                                         learning_rate='auto').fit_transform(
+                    val_features)
 
     font = {"color": "darkred",
             "size": 13,
@@ -257,8 +259,6 @@ def train(input_path, basic_path, output_path):
 
     # 打印 MacroF1
     print("MacroF1:", macro_f1)
-    # 将结果写入文件
-    # with open("results.txt", "w") as f:
-    #     f.write("MacroF1: {}\n".format(macro_f1))
-    #     f.write("\nClassification Report:\n")
-    #     f.write(classification_report(val_label.cpu().numpy(), predicted.cpu().numpy()))
+    print(label_count_dict)
+    result = {"train_losses": train_losses, "val_losses": val_losses, "label_counts": label_count_dict}
+    return result

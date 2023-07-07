@@ -24,7 +24,7 @@ def index(request):
 
             # remover.process(input_path, output_path)
             model.preprocess(input_path, input_path)
-            model.train(input_path, basic_path, output_path)
+            result = model.train(input_path, basic_path, output_path)
             uploads_path = uploaded_file_url.split(".")[0]
             data_file_path = uploaded_file_url.split(".")[0] + "_processed.csv"
             download_link = '/download/' + os.path.basename(output_path)
@@ -53,7 +53,7 @@ def data(request):
 
         # remover.process(input_path, output_path)
         model.preprocess(input_path, input_path)
-        model.train(input_path, output_path)
+        result = model.train(input_path, output_path)
         data_file_path = "/uploads/" + data_file_name.split(".")[0] + "_processed.csv"
         return HttpResponse(request.get_host() + data_file_path)
 
