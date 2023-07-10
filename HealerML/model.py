@@ -153,6 +153,7 @@ def train(input_path, basic_path, output_path):
     batch_size = 32
     train_losses = []
     val_losses = []
+    accuracy_counts = []
     for epoch in range(num_epochs):
         model.train()
         running_train_loss = 0
@@ -178,7 +179,7 @@ def train(input_path, basic_path, output_path):
         train_losses.append(train_loss)
 
         print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}")
-        current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        # current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         # save_checkpoint(model, optimizer, epoch, f'./模型/resnet_epoch_{epoch}_time{current_time}.pt')
         # Evaluation
         model.eval()
@@ -190,6 +191,7 @@ def train(input_path, basic_path, output_path):
             outputs = model(val_data_unsqueezed)
             _, predicted = torch.max(outputs.data, 1)
             accuracy = (predicted == val_label).sum().item() / val_label.size(0)
+            accuracy_counts.append(accuracy)
             print(f"Validation Accuracy at Epoch {epoch + 1}: {accuracy:.4f}")
             running_val_loss += criterion(outputs, val_label).item()
             num_val_batches += 1
@@ -218,6 +220,15 @@ def train(input_path, basic_path, output_path):
     plt.tight_layout()
     plt.savefig(basic_path + f'_tsne.png', dpi=300)
 
+    # accuracy curve
+    epochs = np.arange(1, num_epochs + 1)
+    plt.figure()
+    plt.style.use('classic')
+    plt.plot(epochs, accuracy_counts)
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy Curves')
+    plt.savefig(basic_path + "_accuracy_curves.png", dpi=300)
     # Save predicted labels to a CSV file
     predicted_labels = predicted.cpu().numpy()
     val_ids = np.arange(len(val_label)) + 1
