@@ -90,7 +90,7 @@ def train(model, train_loader, criterion, optimizer, num_epochs):
     for epoch in range(num_epochs):
         model.train()
         for i, (data, labels) in enumerate(train_loader):
-            data = data.to(device)
+            data = data.unsqueeze(1).to(device)
             labels = labels.to(device)
 
             # Forward pass
@@ -109,7 +109,7 @@ def compute_val_loss(model, val_loader, criterion):
     total_loss = 0
     with torch.no_grad():
         for data, labels in val_loader:
-            data = data.to(device)
+            data = data.unsqueeze(1).to(device)
             labels = labels.to(device)
 
             outputs = model(data)
@@ -159,8 +159,8 @@ def objective(params):
     val_dataset = TensorDataset(val_data, val_label)
 
     # 创建数据加载器
-    train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
     # 调用训练函数进行训练
     train(model, train_loader, criterion, optimizer, 30)
@@ -177,4 +177,5 @@ best = fmin(fn=objective,
             algo=tpe.suggest,
             max_evals=100,
             trials=trials)
+print(best)
 
