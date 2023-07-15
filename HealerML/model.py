@@ -8,12 +8,10 @@ import torch.optim as optim
 from imblearn.over_sampling import KMeansSMOTE
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
 warnings.filterwarnings('ignore')
 
 input_size_global = 0
@@ -38,7 +36,6 @@ def preprocess(data):
 def test_preprocess(data):
     # 填充缺失值
     imputer = IterativeImputer(random_state=0)
-    # data_imputed = imputer.fit_transform(data_cleaned)
     data_imputed = imputer.fit_transform(data)
     data_imputed = pd.DataFrame(data_imputed, columns=data.columns)
     data_imputed = data_imputed.dropna()
@@ -103,7 +100,6 @@ class EarlyStopping:
 
 def train(input_path, file_basic_path, output_path):
     global input_size_global, model_path
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_loss_list = []
     test_loss_list = []
     data = pd.read_csv(input_path)
@@ -129,9 +125,6 @@ def train(input_path, file_basic_path, output_path):
     # 训练模型
     num_epochs = 100
     batch_size = 30
-    patience = 5  # patience for early stopping
-    best_loss = np.inf
-    stop_counter = 0
     early_stopping = EarlyStopping(patience=5, verbose=True)
 
     for epoch in range(num_epochs):
@@ -205,9 +198,6 @@ def train(input_path, file_basic_path, output_path):
 
 def test(input_path, file_basic_path, output_path):
     global input_size_global, model_path
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train_loss_list = []
-    test_loss_list = []
     data = pd.read_csv(input_path)
     data = test_preprocess(data)
     input_size = input_size_global  # 输入特征的维度
