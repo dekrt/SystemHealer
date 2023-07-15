@@ -252,13 +252,225 @@ class EarlyStopping:
 
 ### 4.5 训练、保存模型
 
+> 代码中涉及到`t-SNE`算法的部分，将在`六、结果分析`的分析进行详解。
+
+在我们的代码中，模型的训练和保存流程如下：
+
+首先，我们定义了一些训练参数，包括训练的轮数（`num_epochs`）、每批次的样本数（`batch_size`）以及早停策略（`EarlyStopping`）。
+
+接着，我们通过循环迭代每个训练轮次（`epoch`）。在每个轮次中，我们使用随机排列（`permutation`）的方式对训练数据集（`X_train`）进行处理，以获取随机的批次索引（`indices`）。然后，根据这些索引获取相应的训练样本（`batch_X`）和标签（`batch_y`）。
+
+在获取了训练样本和标签后，我们进行前向传播，将批次样本输入模型（`model`），得到模型的输出（`outputs`）。然后，我们计算损失函数（`loss`）来评估模型的预测结果与真实标签之间的差异。
+
+在计算了损失后，我们进行反向传播和优化。首先，我们将梯度归零（`optimizer.zero_grad()`），然后根据损失进行反向传播（`loss.backward()`），最后执行优化器的一步更新（`optimizer.step()`）来更新模型的参数。
+
+在每个轮次结束后，我们打印训练损失（`loss.item()`）和验证集损失（`loss_test.item()`），并将它们分别添加到训练损失列表（`train_loss_list`）和测试损失列表（`test_loss_list`）中。
+
+接下来，我们进行模型在测试集上的评估，通过将测试集样本（`X_test`）输入模型，得到预测结果（`outputs`）。然后，我们计算预测的准确率（`accuracy`）并打印出来。
+
+我们还计算模型在验证集上的损失（`val_loss`）。然后，我们运行早停策略（`early_stopping`）来判断是否提前停止训练，如果满足早停的条件（`early_stopping.early_stop`），则打印"early stop"并跳出训练循环。
+
+在所有训练轮次完成后，在测试集上进行最终评估，计算模型的准确率并打印出来。
+
+最后，我们调用`torch.save`函数对模型进行保存，并更新模型保存的路径。这样，我们就完成了模型的训练和保存流程。
+
+```python
+def train(input_path, file_basic_path, output_path):
+    global input_size_global, model_path
+    train_loss_list = []
+    test_loss_list = []
+    data = pd.read_csv(input_path)
+    X_train, y_train = preprocess(data)
+    kmeans_smote = KMeansSMOTE(cluster_balance_threshold=0.064, random_state=42)
+    X_train, y_train = kmeans_smote.fit_resample(X_train, y_train)
+    X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
+    # -----------------------------MLP-----------------------------------#
+    # 转换为张量
+    X_train = torch.Tensor(X_train)
+    X_test = torch.Tensor(X_test)
+    y_train = torch.LongTensor(y_train.values)
+    y_test = torch.LongTensor(y_test.values)
+    input_size = X_train.shape[1]  # 输入特征的维度
+    input_size_global = X_train.shape[1]
+    hidden_size = 200  # 隐藏层的大小
+    num_classes = 6  # 类别数量
+    model = MLP(input_size, hidden_size, num_classes)
+
+    # 定义损失函数和优化器
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.0001)
+    # 训练模型
+    num_epochs = 100
+    batch_size = 30
+    early_stopping = EarlyStopping(patience=5, verbose=True)
+
+    for epoch in range(num_epochs):
+        permutation = torch.randperm(X_train.size()[0])
+        for i in range(0, X_train.size()[0], batch_size):
+            indices = permutation[i:i + batch_size]
+            batch_X, batch_y = X_train[indices], y_train[indices]
+
+            # 前向传播
+            outputs = model(batch_X)
+            loss = criterion(outputs, batch_y)
+            predict = model(X_test)
+            loss_test = criterion(predict, y_test)
+
+            # 反向传播和优化
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+
+        # 每个epoch打印损失
+        print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}, Validate Loss: {loss_test.item():.4f}")
+        train_loss_list.append(loss.item())
+        test_loss_list.append(loss_test.item())
+
+        # early_stopping(loss.item(), model, val_features, 'checkpoint.pt')
+        # 在测试集上进行评估
+        with torch.no_grad():
+            outputs = model(X_test)
+            _, predicted = torch.max(outputs.data, 1)
+            accuracy = (predicted == y_test).sum().item() / y_test.size(0)
+            print(f"Test Accuracy: {accuracy:.4f}")
+            val_loss = criterion(outputs,y_test)
+            early_stopping(val_loss,model)
+            if early_stopping.early_stop:
+                print("early stop")
+                break
+
+    # 在测试集上进行评估
+    with torch.no_grad():
+        outputs = model(X_test)
+        _, predicted = torch.max(outputs.data, 1)
+        accuracy = (predicted == y_test).sum().item() / y_test.size(0)
+        print(f"Test Accuracy: {accuracy:.4f}")
+    label_count_dict = [0, 0, 0, 0, 0, 0]
+    for value in data['label']:
+        label_count_dict[value] += 1
+    val_features = model(X_test, return_features=True)
+    val_features_tsne = TSNE(n_components=2, random_state=33, init='pca',
+                                         learning_rate='auto').fit_transform(
+                    val_features)
+    font = {"color": "darkred",
+            "size": 13,
+            "family": "serif"}
+
+    plt.style.use("dark_background")
+    plt.figure(figsize=(9, 8))  
+
+    plt.scatter(val_features_tsne[:, 0], val_features_tsne[:, 1], c=y_test.cpu().numpy(), alpha=0.6,
+                cmap=plt.cm.get_cmap('rainbow', num_classes))
+    plt.title("t-SNE", fontdict=font)
+    cbar = plt.colorbar(ticks=range(num_classes))
+    cbar.set_label(label='Class label', fontdict=font)
+    plt.clim(-0.5, num_classes - 0.5)
+    plt.tight_layout()
+    plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
+    result = {"train_losses": train_loss_list, "val_losses": test_loss_list, "label_counts": label_count_dict}
+    torch.save(model.state_dict(), file_basic_path + '_model.pth')
+    model_path = file_basic_path + '_model.pth'
+    return result
+```
+
 ### 4.6 调用模型进行预测
 
+> 代码中涉及到`t-SNE`算法的部分，将在`六、结果分析`的分析进行详解。
 
+在我们的代码中，调用模型进行预测的流程如下：
+
+首先，它使用pandas的`read_csv`函数从`input_path`读取数据，然后对数据进行预处理。预处理的具体步骤在这段代码中并未给出，但通常包括数据清洗、缺失值处理、数据标准化等步骤。
+
+接着，它定义了一个多层感知器（`MLP`）模型。这个模型有一个输入层，一个隐藏层和一个输出层。输入层的大小由全局变量`input_size_global`决定，隐藏层的大小为200，输出层的大小为6，这意味着模型可以预测6个不同的类别。
+
+然后，它从`model_path`加载预训练的模型参数，并使用这些参数对数据进行预测。预测的结果是一个概率分布，表示数据属于每个类别的概率。`torch.max`函数用于找到概率最大的类别作为预测结果。
+
+之后，它统计了每个类别的预测数量，并将预测结果保存到一个json文件中。这个文件的路径由`file_basic_path`和固定的字符串`'_predicted.json'`拼接而成。
+
+接下来，它使用`t-SNE`算法对模型的特征进行降维，并将降维后的特征可视化。在这个过程中，它首先获取模型的特征，然后使用`t-SNE`算法将特征降到2维，最后使用`matplotlib`库将降维后的特征绘制成散点图。在这个散点图中，每个点的颜色表示它的类别。
+
+最后，它返回一个字典，其中包含每个类别的预测数量。
+
+这段代码的主要作用是对输入的数据进行预测，并将预测结果以及一些相关信息保存到文件中。同时，它还对模型的特征进行了可视化，这有助于我们理解模型的预测结果。
+
+```python
+def test(input_path, file_basic_path, output_path):
+    global input_size_global, model_path
+    data = pd.read_csv(input_path)
+    data = test_preprocess(data)
+    input_size = input_size_global  # 输入特征的维度
+    hidden_size = 200  # 隐藏层的大小
+    num_classes = 6  # 类别数量
+    model = MLP(input_size, hidden_size, num_classes)
+    model.load_state_dict(torch.load(model_path))
+    with torch.no_grad():
+        data = torch.Tensor(data)
+        outputs = model(data)
+        _, predicted = torch.max(outputs.data, 1)
+    
+    label_count_list = [0, 0, 0, 0, 0, 0]
+    for value in predicted:
+        label_count_list[value] += 1
+    
+    result_dict = {}
+    predicted_new = predicted.tolist()
+    for i, value in enumerate(predicted_new, start=1):
+        result_dict[str(i)] = value
+    with open(file_basic_path + '_predicted.json', 'w') as json_file:
+        json.dump(result_dict, json_file)
+    result = {"label_counts": label_count_list}
+    val_features = model(data, return_features=True)
+    val_features_tsne = TSNE(n_components=2, random_state=33, init='pca',
+                                         learning_rate='auto').fit_transform(
+                    val_features)
+    font = {"color": "darkred",
+            "size": 13,
+            "family": "serif"}
+
+    plt.style.use("dark_background")
+    plt.figure(figsize=(9, 8))  
+
+    plt.scatter(val_features_tsne[:, 0], val_features_tsne[:, 1], c=predicted.cpu().numpy(), alpha=0.6,
+                cmap=plt.cm.get_cmap('rainbow', num_classes))
+    plt.title("t-SNE", fontdict=font)
+    cbar = plt.colorbar(ticks=range(num_classes))
+    cbar.set_label(label='Class label', fontdict=font)
+    plt.clim(-0.5, num_classes - 0.5)
+    plt.tight_layout()
+    plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
+    return result
+```
+
+## 
 
 ## 五、原理分析
 
+### 1. 深度学习与神经网络
 
+深度学习是机器学习的一个分支，它试图模拟人脑的工作原理，通过训练大量的数据来学习数据的内在规律和表示。在深度学习中，最基本的单元是神经元，这是受到生物神经元的启发而设计的。在人工神经网络中，神经元通过连接和权重将输入信号转化为输出信号。一个深度神经网络由多个这样的神经元层叠加而成。
+
+### 2. 多层感知机 (MLP)
+
+在一些任务中，最常用的深度学习模型类型是多层感知机（MLP）。MLP是一种前向结构的人工神经网络，映射一组输入向量到一组输出向量。MLP由多个层级组成，每个层级都完全连接到下一个层级。在MLP中，最后一个层级是输出层，而除输入层外的其它层级都是隐藏层。
+
+### 3. 激活函数
+
+`ReLU`（Rectified Linear Unit）是深度学习中常用的一种激活函数。它的公式是：
+$$
+f(x) = \max(0, x)
+$$
+`ReLU`函数有一个很好的特性，那就是它能够在训练深度神经网络时帮助缓解梯度消失问题。这是因为`ReLU`函数在输入大于0时，其梯度始终为1。因此，对于深度模型，ReLU函数可以保证反向传播时梯度不会消失，从而有效地更新模型的参数。
+
+### 4. 损失函数和优化器
+
+在神经网络的训练过程中，我们需要有一种方式来度量模型的表现。这就是所谓的损失函数，它可以量化模型的预测结果与真实结果之间的差距。在这个项目中，我们使用的是交叉熵损失函数，它是分类问题中常用的损失函数。
+
+优化器是用来更新和调整模型参数以最小化损失函数的工具。在这个项目中，我们使用的是 Adam 优化器。Adam 是一种自适应的学习率优化算法，它结合了动量优化和 RMSProp 的思想。
+
+### 5. 数据预处理
+
+在训练MLP模型时，对输入数据进行预处理是非常重要的。常见的预处理步骤包括标准化（使输入数据的每一特征都有相同的尺度）、缺失值处理（填充或删除缺失值）以及类别编码（将类别变量转化为数值变量）。预处理步骤可以帮助提高模型的性能和稳定性。
 
 ## 六、结果分析
 
@@ -277,18 +489,3 @@ t-SNE（t-Distributed Stochastic Neighbor Embedding）是一种用于数据可�
 
 以上是对t-SNE的基本介绍，如果你需要更详细的信息或者具体的使用方法，我可以提供更多的帮助。
 
-## 部署
-
-该 Web 系统通过使用 Docker 和 Nginx 进行部署, 从而实现了以下特性:
-
-1. 容器化部署：
-
-使用 Docker 容器化技术，将整个 Web 系统打包为独立的容器。
-
-2. 高可用性和负载均衡：
-
-Nginx 作为反向代理服务器，提供高可用性和负载均衡功能。使用 Nginx 进行请求的负载均衡。
-
-3. 静态资源缓存和压缩：
-
-配置 Nginx 以缓存常用的静态文件，如 CSS、JavaScript 和图像，减少对后端服务器的请求，提高响应速度。
