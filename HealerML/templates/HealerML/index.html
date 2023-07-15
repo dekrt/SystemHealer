@@ -87,7 +87,7 @@
                     </div>
                   </div>
                   <!-- tip end -->
-                  <form method="post" enctype="multipart/form-data">
+                  {% comment %} <form method="post" enctype="multipart/form-data">
                     <div style="text-align: center;">
                       <input class="btn btn-primary"
                         style="margin-top: 10px; margin-bottom: 30px; background-color: #0f70e6; border-radius: 20px;"
@@ -96,7 +96,32 @@
                       <button type="button submit" class="btn btn-primary my-btn"
                         onclick="showLoadingModal()">点击上传</button>
                     </div>
+                  </form> {% endcomment %}
+
+                  <form method="post" enctype="multipart/form-data">
+                    <div style="text-align: center;">
+                      <input class="btn btn-primary"
+                        style="margin-top: 10px; margin-bottom: 30px; background-color: #0f70e6; border-radius: 20px;"
+                        type="file" name="data" onchange="enableUploadButton()">
+                      <br>
+                      <button type="submit" class="btn btn-primary my-btn" id="uploadButton" disabled>点击上传</button>
+                    </div>
                   </form>
+
+                  <script>
+                    // 在页面加载时禁用上传按钮
+                    window.addEventListener('DOMContentLoaded', function() {
+                      var uploadButton = document.getElementById('uploadButton');
+                      uploadButton.disabled = true;
+                    });
+                  
+                    // 在文件选择时启用上传按钮
+                    function enableUploadButton() {
+                      var uploadButton = document.getElementById('uploadButton');
+                      uploadButton.disabled = false;
+                    }
+                  </script>
+
 {#                  {% if train_loss %}#}
 {#                  <hr>#}
 {#                  <h5>Process Result :#}
