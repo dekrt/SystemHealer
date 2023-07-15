@@ -78,7 +78,7 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p>输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求输入的csv文件格式要求</p>
+                          <p>请上传.csv格式格式的数据 ！</p>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">好的</button>
@@ -88,23 +88,27 @@
                   </div>
                   <!-- tip end -->
                   <form method="post" enctype="multipart/form-data">
-                    <center>
+                    <div style="text-align: center;">
                       <input class="btn btn-primary"
                         style="margin-top: 10px; margin-bottom: 30px; background-color: #0f70e6; border-radius: 20px;"
                         type="file" name="data">
                       <br>
                       <button type="button submit" class="btn btn-primary my-btn"
-                        onclick="showLoadingModal()">点击训练</button>
-                    </center>
+                        onclick="showLoadingModal()">点击上传</button>
+                    </div>
                   </form>
-                  {% if data_file_path %}
-                  <hr>
-                  <h5>Process Result :
-                  </h5>
-                  <a href="{{ download_link }}">Download processed data</a>
-                  <br>
-                  <a href="{{ model_download_link }}">Download Model</a>
-                  {% endif %}
+{#                  {% if train_loss %}#}
+{#                  <hr>#}
+{#                  <h5>Process Result :#}
+{#                  </h5>#}
+{#                  <a href="{{ download_link }}">Download processed data</a>#}
+{#                  <br>#}
+{#                  <a href="{{ model_download_link }}">Download Model</a>#}
+{#                  {% endif %}#}
+                    {% if model_download_link %}
+                      <h5>Process Result :
+                      <a href="{{ model_download_link }}">Download Model</a>
+                    {% endif %}
                   <!-- waiting begin -->
                   <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -131,14 +135,14 @@
               <div class="col-md-6">
                 <div id="pie chart" style="width: 600px; height: 400px;"></div>
               </div>
-              {% if not data_file_path %}
+              {% if not train_loss %}
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">分类结果可视化</p>
                 <img src="{% static 'img/image.jpg' %}" alt="图片3" class="img-fluid" style="width: 400px;">
               </div>
               {% endif %}
 
-              {% if data_file_path %}
+              {% if train_loss %}
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">图片说明</p>
                 <img src="{{ uploads_path }}_tsne.png" alt="图片3" class="img-fluid" style="width: 400px;">
@@ -186,7 +190,7 @@
 
   <script src="{% static 'charts.js' %}"></script>
 
-  {% if not data_file_path %}
+  {% if not train_loss %}
   <script>
     // < !--饼状图 begin-- >
     // 初始化 ECharts 实例
@@ -206,7 +210,7 @@
       legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['类别1', '类别2', '类别3', '类别4', '类别5']
+        data: ['类别0', '类别1', '类别2', '类别3', '类别4', '类别5']
       },
       series: [
         {
@@ -215,11 +219,12 @@
           radius: '55%',
           center: ['50%', '60%'],
           data: [
-            { value: 48, name: '类别1' },
-            { value: 70, name: '类别2' },
-            { value: 45, name: '类别3' },
-            { value: 30, name: '类别4' },
-            { value: 38, name: '类别5' }
+            { value: 1, name: '类别0' },
+            { value: 1, name: '类别1' },
+            { value: 1, name: '类别2' },
+            { value: 1, name: '类别3' },
+            { value: 1, name: '类别4' },
+            { value: 1, name: '类别5' }
           ],
           itemStyle: {
             emphasis: {
@@ -268,12 +273,12 @@
         {
           name: '训练集Loss',
           type: 'line',
-          data: [10, 20, 30, 40, 50]
+          data: [10, 10, 10, 10, 10]
         },
         {
           name: '验证集Loss',
           type: 'line',
-          data: [20, 40, 10, 50, 30]
+          data: [10, 10, 10, 10, 10]
         }
       ]
     };
@@ -284,7 +289,7 @@
   </script>
   {% endif %}
 
-  {% if data_file_path %}
+  {% if train_loss %}
   <script>
     // < !--饼状图 begin-- >
     // 初始化 ECharts 实例
@@ -305,7 +310,7 @@
       legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['类别1', '类别2', '类别3', '类别4', '类别5']
+        data: ['类别0', '类别1', '类别2', '类别3', '类别4', '类别5']
       },
       series: [
         {
@@ -314,11 +319,12 @@
           radius: '55%',
           center: ['50%', '60%'],
           data: [
-            { value: label_counts[0], name: '类别1' },
-            { value: label_counts[1], name: '类别2' },
-            { value: label_counts[2], name: '类别3' },
-            { value: label_counts[3], name: '类别4' },
-            { value: label_counts[4], name: '类别5' }
+            { value: label_counts[0], name: '类别0' },
+            { value: label_counts[1], name: '类别1' },
+            { value: label_counts[2], name: '类别2' },
+            { value: label_counts[3], name: '类别3' },
+            { value: label_counts[4], name: '类别4' },
+             {value: label_counts[5], name: '类别5'}
           ],
           itemStyle: {
             emphasis: {

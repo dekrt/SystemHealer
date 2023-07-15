@@ -9,18 +9,10 @@ from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-
-
-
 
 warnings.filterwarnings('ignore')
 
-
-def preprocess(data):
+def train_preprocess(data):
     # 去掉重复值
     data.drop_duplicates(inplace=True)
     # 填充缺失值
@@ -35,7 +27,28 @@ def preprocess(data):
     # 标准化
     scaler = StandardScaler()
     data_standerd = scaler.fit_transform(data_imputed)
+
     return data_standerd, y
+
+def val_preprocess(data):
+    # 去掉重复值
+    data.drop_duplicates(inplace=True)
+
+    # 填充缺失值
+    imputer = IterativeImputer(random_state=0)
+    data_imputed = imputer.fit_transform(data)
+    data_imputed = pd.DataFrame(data_imputed, columns=data.columns)
+    data_imputed = data_imputed.dropna()
+    y = data_imputed['label']
+    columns_to_drop = ['label']
+    data_imputed = data_imputed.drop(columns_to_drop, axis=1)
+
+    # 标准化
+    scaler = StandardScaler()
+    data_standard = scaler.fit_transform(data_imputed)
+
+    return data_standard, y
+
 
 class MLP(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
@@ -55,7 +68,6 @@ class MLP(nn.Module):
         out = self.activation(out)
         out = self.fc4(out)
         return out
-
 
 class EarlyStopping:
     def __init__(self, patience=7, verbose=False, delta=0):
@@ -91,26 +103,37 @@ class EarlyStopping:
         self.val_loss_min = val_loss
         self.best_val_features = val_features  # 在这里保存最优的val_features
 
-
-def train(input_path, file_basic_path, output_path):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train_loss_list = []
-    test_loss_list = []
-    data = pd.read_csv(input_path)
-    X_train, y_train = preprocess(data)
-    kmeans_smote = KMeansSMOTE(cluster_balance_threshold=0.064, random_state=42)
+if (__name__ == "__main__"):
+    data_train = pd.read_csv("train_10000.csv")
+    data_val = pd.read_csv("validate.csv")
+    mean1 = data_train.mean()
+    mean2 = data_val.mean()
+    columns_to_drop = mean1[abs(mean1 - mean2) > 100].index
+    data_train = data_train.drop(columns_to_drop, axis=1)
+    data_val = data_val.drop(columns_to_drop, axis=1)
+    X_train, y_train = train_preprocess(data_train)
+    X_val, y_val = val_preprocess(data_val)
+    
+    # kmeans_smote = KMeansSMOTE(cluster_balance_threshold=0.064, random_state=42)
+    kmeans_smote = KMeansSMOTE()
     X_train, y_train = kmeans_smote.fit_resample(X_train, y_train)
+
+
     X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
+    
     # -----------------------------MLP-----------------------------------#
     # 转换为张量
     X_train = torch.Tensor(X_train)
     X_test = torch.Tensor(X_test)
     y_train = torch.LongTensor(y_train.values)
     y_test = torch.LongTensor(y_test.values)
+    X_val = torch.Tensor(X_val)
+    y_val = torch.LongTensor(y_val.values)
     input_size = X_train.shape[1]  # 输入特征的维度
     hidden_size = 200  # 隐藏层的大小
     num_classes = 6  # 类别数量
     model = MLP(input_size, hidden_size, num_classes)
+
 
     # 定义损失函数和优化器
     criterion = nn.CrossEntropyLoss()
@@ -132,16 +155,16 @@ def train(input_path, file_basic_path, output_path):
             # 前向传播
             outputs = model(batch_X)
             loss = criterion(outputs, batch_y)
-            predict = model(X_test)
-            loss_test = criterion(predict, y_test)
+            predict = model(X_val)
+            loss_validate = criterion(predict, y_val)
 
             # 反向传播和优化
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
         # Check for early stopping
-        if loss_test < best_loss:
-            best_loss = loss_test
+        if loss_validate < best_loss:
+            best_loss = loss_validate
             stop_counter = 0
         else:
             stop_counter += 1
@@ -150,9 +173,7 @@ def train(input_path, file_basic_path, output_path):
                 break
 
         # 每个epoch打印损失
-        print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}, Validate Loss: {loss_test.item():.4f}")
-        train_loss_list.append(loss.item())
-        test_loss_list.append(loss_test.item())
+        print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}, Validate Loss: {loss_validate.item():.4f}")
 
         # early_stopping(loss.item(), model, val_features, 'checkpoint.pt')
         # 在测试集上进行评估
@@ -162,33 +183,21 @@ def train(input_path, file_basic_path, output_path):
             accuracy = (predicted == y_test).sum().item() / y_test.size(0)
             print(f"Test Accuracy: {accuracy:.4f}")
 
+        with torch.no_grad():
+            outputs = model(X_val)
+            _, predicted = torch.max(outputs.data, 1)
+            accuracy = (predicted == y_val).sum().item() / y_val.size(0)
+            print(f"Validation Accuracy: {accuracy:.4f}")
+
     # 在测试集上进行评估
     with torch.no_grad():
         outputs = model(X_test)
         _, predicted = torch.max(outputs.data, 1)
         accuracy = (predicted == y_test).sum().item() / y_test.size(0)
         print(f"Test Accuracy: {accuracy:.4f}")
-    label_count_dict = [0, 0, 0, 0, 0, 0]
-    for value in data['label']:
-        label_count_dict[value] += 1
-    tsne = TSNE(n_components=2, random_state=0)
-    X_test_tsne = tsne.fit_transform(X_test)
-    font = {"color": "darkred",
-            "size": 13,
-            "family": "serif"}
 
-    plt.style.use("dark_background")
-    plt.figure(figsize=(9, 8))
-
-    plt.scatter(X_test_tsne[:, 0], X_test_tsne[:, 1], c=predicted, alpha=0.6,
-                cmap=plt.cm.get_cmap('rainbow', num_classes))
-    plt.title("t-SNE", fontdict=font)
-    cbar = plt.colorbar(ticks=range(num_classes))
-    cbar.set_label(label='Class label', fontdict=font)
-    plt.clim(-0.5, num_classes - 0.5)
-    plt.tight_layout()
-    plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
-
-    result = {"train_losses": train_loss_list, "val_losses": test_loss_list, "label_counts": label_count_dict}
-
-    return result
+    with torch.no_grad():
+        outputs = model(X_val)
+        _, predicted = torch.max(outputs.data, 1)
+        accuracy = (predicted == y_val).sum().item() / y_val.size(0)
+        print(f"Validation Accuracy: {accuracy:.4f}")

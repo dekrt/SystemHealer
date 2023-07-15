@@ -9,6 +9,7 @@ extensions = ['.csv']
 
 
 def index(request):
+    is_training = request.session.get('is_training', True)
     if request.method == 'POST' and request.FILES['data']:
         data_file = request.FILES['data']
         ext = os.path.splitext(data_file.name)[1]
@@ -19,53 +20,73 @@ def index(request):
             file_name = uploaded_file_url.split("/")[2]
 
             input_path = os.getcwd() + uploaded_file_url
-            basic_path = os.getcwd() + "/uploads/" + file_name.split(".")[0]
+            file_basic_path = os.getcwd() + "/uploads/" + file_name.split(".")[0]
             output_path = os.getcwd() + "/uploads/" + file_name.split(".")[0] + "_processed.csv"
-            model_path = os.getcwd() + "/model/model.pt"
+            model_path = file_basic_path + "_model.pt"
+            print('pwd: ', os.getcwd(), '\n input_path: ', input_path,
+                 '\n file_basic_path', file_basic_path, '\n output_path:', output_path )
 
-            if not os.path.exists(model_path):  # Train the model if it doesn't exist.
-                result = model.train(input_path, basic_path, output_path)
-                uploads_path = uploaded_file_url.split(".")[0]
-                model_download_link = '/download_model/' + os.path.basename(os.getcwd() + "/model/resnet.pt")
-                return render(request, 'HealerML/index.html', {"model_download_link": model_download_link,
-                                                               "uploads_path": uploads_path,
-                                                               "train_loss": result["train_losses"],
-                                                               "val_loss": result["val_losses"],
-                                                               "label_counts": result["label_counts"]
-                                                               })
-            else:  # Load the model and predict if it exists.
-                model.load_model(model_path)
-                result = model.predict(input_path, model_path, output_path)
-                download_link = '/download/' + os.path.basename(output_path)
-                return render(request, 'HealerML/index.html', {"download_link": download_link,
-                                                               "train_loss": result["train_losses"],
-                                                               "val_loss": result["val_losses"],
-                                                               "label_counts": result["label_counts"]
-                                                               })
-
-
-            # result = model.train(input_path, basic_path, output_path)
-            # uploads_path = uploaded_file_url.split(".")[0]
-            # data_file_path = uploaded_file_url.split(".")[0] + "_processed.csv"
-            # download_link = '/download/' + os.path.basename(output_path)
-            # model_download_link = '/download_model/' + os.path.basename(os.getcwd() + "/model/resnet.pt")
-            # return render(request, 'HealerML/index.html', {"data_file_path": data_file_path,
-            #                                                "download_link": download_link,
-            #                                                "model_download_link": model_download_link,
-            #                                                "uploads_path": uploads_path,
-            #                                                "train_loss": result["train_losses"],
-            #                                                "val_loss": result["val_losses"],
-            #                                                "label_counts": result["label_counts"]
-            #                                                })
+            # if is_training:  # Train the model if it doesn't exist.
+            result = model.train(input_path, file_basic_path, output_path)
+            uploads_path = uploaded_file_url.split(".")[0]
+            model_download_link = '/download_model/' + os.path.basename(model_path)
+            request.session['is_training'] = False  # Next time, we will do prediction.
+            return render(request, 'HealerML/index.html', {"model_download_link": model_download_link,
+                                                           "uploads_path": uploads_path,
+                                                           "train_loss": result["train_losses"],
+                                                           "val_loss": result["val_losses"],
+                                                           "label_counts": result["label_counts"]
+                                                           })
+            # else:  # Load the model and predict if it exists.
+            #     result = model.train(input_path, model_path, output_path)
+            #     download_link = '/download/' + os.path.basename(output_path)
+            #     request.session['is_training'] = True  # Next time, we will do training.
+            #     return render(request, 'HealerML/index.html', {"download_link": download_link,
+            #                                                    "train_loss": result["train_losses"],
+            #                                                    "val_loss": result["val_losses"],
+            #                                                    "label_counts": result["label_counts"]
+            #                                                    })
         else:
             return HttpResponse("Only Allowed extensions are {}".format(extensions))
     return render(request, 'HealerML/index.html')
+
+# def index(request):
+#     if request.method == 'POST' and request.FILES['data']:
+#         data_file = request.FILES['data']
+#         ext = os.path.splitext(data_file.name)[1]
+#         if ext.lower() in extensions:
+#             fs = FileSystemStorage()
+#             filename = fs.save(data_file.name, data_file)
+#             uploaded_file_url = fs.url(filename)
+#             file_name = uploaded_file_url.split("/")[2]
+#
+#             input_path = os.getcwd() + uploaded_file_url
+#             basic_path = os.getcwd() + "/uploads/" + file_name.split(".")[0]
+#             output_path = os.getcwd() + "/uploads/" + file_name.split(".")[0] + "_processed.csv"
+#
+#             # remover.process(input_path, output_path)
+#             model.preprocess(input_path, input_path)
+#             result = model.train(input_path, basic_path, output_path)
+#             uploads_path = uploaded_file_url.split(".")[0]
+#             data_file_path = uploaded_file_url.split(".")[0] + "_processed.csv"
+#             download_link = '/download/' + os.path.basename(output_path)
+#             model_download_link = '/download_model/' + os.path.basename(os.getcwd() + "/model/resnet.pt")
+#             return render(request, 'HealerML/index.html', {"data_file_path": data_file_path,
+#                                                            "download_link": download_link,
+#                                                            "model_download_link": model_download_link,
+#                                                            "uploads_path": uploads_path,
+#                                                            "train_loss": result["train_losses"],
+#                                                            "val_loss": result["val_losses"],
+#                                                            "label_counts": result["label_counts"]
+#                                                            })
+#         else:
+#             return HttpResponse("Only Allowed extensions are {}".format(extensions))
+#     return render(request, 'HealerML/index.html')
 
 
 def data(request):
     if request.method == 'POST' and request.POST['data']:
         data_file = request.POST['data']
-        # data = base64.b64decode(data_file)
         data_file_name = datetime.datetime.now().strftime("%Y%b%d%H%M%S%f") + ".csv"
         data_file_path = os.getcwd() + "/uploads/" + data_file_name
 
@@ -93,7 +114,7 @@ def download(request, file_name):
 
 def download_model(request, file_name):
     # file_path = os.path.join(os.getcwd(), "/model/", file_name)
-    file_path = os.getcwd() + "/model/" + file_name
+    file_path = os.getcwd() + "/uploads/" + file_name
     if os.path.exists(file_path):
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=file_name)
     else:
