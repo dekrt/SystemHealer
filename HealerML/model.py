@@ -24,7 +24,6 @@ def preprocess(data):
     data.drop_duplicates(inplace=True)
     # 填充缺失值
     imputer = IterativeImputer(random_state=0)
-    # data_imputed = imputer.fit_transform(data_cleaned)
     data_imputed = imputer.fit_transform(data)
     data_imputed = pd.DataFrame(data_imputed, columns=data.columns)
     data_imputed = data_imputed.dropna()
@@ -109,7 +108,7 @@ def train(input_path, file_basic_path, output_path):
     test_loss_list = []
     data = pd.read_csv(input_path)
     X_train, y_train = preprocess(data)
-    kmeans_smote = KMeansSMOTE(cluster_balance_threshold=0.064, random_state=42)
+    kmeans_smote = KMeansSMOTE(random_state=42)
     X_train, y_train = kmeans_smote.fit_resample(X_train, y_train)
     X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
     # -----------------------------MLP-----------------------------------#
