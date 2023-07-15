@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.manifold import TSNE
+from sklearn.metrics import f1_score, classification_report
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 warnings.filterwarnings('ignore')
@@ -182,6 +183,9 @@ if (__name__ == "__main__"):
         _, predicted = torch.max(outputs.data, 1)
         accuracy = (predicted == y_val).sum().item() / y_val.size(0)
         print(f"Validation Accuracy: {accuracy:.4f}")
+        macro_f1 = f1_score(y_val, predicted, average='macro')
+        print(macro_f1)
+        print(classification_report(y_val, predicted))
 
     # data = pd.read_csv("/home/junj/SystemHealer/tmp_file/test_2000_x.csv")
     # data = test_preprocess(data)
