@@ -29,7 +29,7 @@
 
 ![index_page](./pics/website.png)
 
-
+​		网页基于web3开发，主要使用html5+css3+js，使用bootstrap和jQuary框架构建交互操作，提高了web系统的美观性、易用性。
 
 ### 2.2 部署方法
 
