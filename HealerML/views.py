@@ -35,6 +35,7 @@ def index(request):
                 print('No. 2: ', is_training)
                 return render(request, 'HealerML/index.html', {"model_download_link": model_download_link,
                                                                "uploads_path": uploads_path,
+                                                               "file_basic_path": file_basic_path,
                                                                "train_loss": result["train_losses"],
                                                                "val_loss": result["val_losses"],
                                                                "label_counts": result["label_counts"]
@@ -42,10 +43,14 @@ def index(request):
 
             else:  # Load the model and predict if it exists.
                 result = model.test(input_path, file_basic_path, output_path)
+                uploads_path = uploaded_file_url.split(".")[0]
                 model_download_link = '/download_model/' + os.path.basename(model_path)
                 download_link = '/download/' + os.path.basename(output_path)
                 is_training = True  # Next time, we will do training.
+                print(result['label_counts'])
                 return render(request, 'HealerML/index.html', {"model_download_link": model_download_link,
+                                                                "uploads_path": uploads_path,
+                                                               "file_basic_path": file_basic_path,
                                                                "download_link": download_link,
                                                                "label_counts": result["label_counts"]
                                                                })

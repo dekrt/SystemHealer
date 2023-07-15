@@ -138,14 +138,14 @@
               <div class="col-md-6">
                 <div id="pie chart" style="width: 600px; height: 400px;"></div>
               </div>
-              {% if not train_loss %}
+              {% if not label_counts %}
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">分类结果可视化</p>
                 <img src="{% static 'img/image.png' %}" alt="图片3" class="img-fluid" style="width: 400px;">
               </div>
               {% endif %}
 
-              {% if train_loss %}
+              {% if label_counts %}
               <div class="col-md-6" style="text-align: center;">
                 <p style="padding-top: 10px;">图片说明</p>
                 <img src="{{ uploads_path }}_tsne.png" alt="图片3" class="img-fluid" style="width: 400px;">
@@ -193,7 +193,7 @@
 
   <script src="{% static 'charts.js' %}"></script>
 
-  {% if not train_loss %}
+  {% if not label_counts %}
   <script>
     // < !--饼状图 begin-- >
     // 初始化 ECharts 实例
@@ -292,7 +292,7 @@
   </script>
   {% endif %}
 
-  {% if train_loss %}
+  {% if label_counts %}
   <script>
     // < !--饼状图 begin-- >
     // 初始化 ECharts 实例

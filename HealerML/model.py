@@ -238,28 +238,35 @@ def test(input_path, file_basic_path, output_path):
         data = torch.Tensor(data)
         outputs = model(data)
         _, predicted = torch.max(outputs.data, 1)
-    counts = torch.bincount(predicted)
-    label_count_list = counts.tolist()
-    # tsne = TSNE(n_components=2, random_state=0)
-    # X_test_tsne = tsne.fit_transform(predicted)
-    # font = {"color": "darkred",
-    #         "size": 13,
-    #         "family": "serif"}
-    # plt.style.use("dark_background")
-    # plt.figure(figsize=(9, 8))
-    # plt.scatter(X_test_tsne[:, 0], X_test_tsne[:, 1], c=predicted, alpha=0.6,
-    #             cmap=plt.cm.get_cmap('rainbow', num_classes))
-    # plt.title("t-SNE", fontdict=font)
-    # cbar = plt.colorbar(ticks=range(num_classes))
-    # cbar.set_label(label='Class label', fontdict=font)
-    # plt.clim(-0.5, num_classes - 0.5)
-    # plt.tight_layout()
-    # plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
+    
+    label_count_list = [0, 0, 0, 0, 0, 0]
+    for value in predicted:
+        label_count_list[value] += 1
+    
     result_dict = {}
-    predicted = predicted.tolist()
-    for i, value in enumerate(predicted, start=1):
+    predicted_new = predicted.tolist()
+    for i, value in enumerate(predicted_new, start=1):
         result_dict[str(i)] = value
     with open(file_basic_path + '_predicted.json', 'w') as json_file:
         json.dump(result_dict, json_file)
     result = {"label_counts": label_count_list}
+    val_features = model(data, return_features=True)
+    val_features_tsne = TSNE(n_components=2, random_state=33, init='pca',
+                                         learning_rate='auto').fit_transform(
+                    val_features)
+    font = {"color": "darkred",
+            "size": 13,
+            "family": "serif"}
+
+    plt.style.use("dark_background")
+    plt.figure(figsize=(9, 8))  
+
+    plt.scatter(val_features_tsne[:, 0], val_features_tsne[:, 1], c=predicted.cpu().numpy(), alpha=0.6,
+                cmap=plt.cm.get_cmap('rainbow', num_classes))
+    plt.title("t-SNE", fontdict=font)
+    cbar = plt.colorbar(ticks=range(num_classes))
+    cbar.set_label(label='Class label', fontdict=font)
+    plt.clim(-0.5, num_classes - 0.5)
+    plt.tight_layout()
+    plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
     return result
