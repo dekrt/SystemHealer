@@ -170,6 +170,8 @@ if (__name__ == "__main__"):
             _, predicted = torch.max(outputs.data, 1)
             accuracy = (predicted == y_val).sum().item() / y_val.size(0)
             print(f"Validation Accuracy: {accuracy:.4f}")
+        
+        torch.save(model.state_dict(), './checkpoint.pt')
 
     # 在测试集上进行评估
     with torch.no_grad():
