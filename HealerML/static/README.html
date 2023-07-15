@@ -1,0 +1,1256 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+/* 
+ *     Typora Theme - Lapis    /    Author - YiNN 
+ *     https://github.com/YiNNx/typora-theme-lapis
+ */
+
+:root {
+    --text-color: rgb(58 64 73 / 97%);
+    /* Text */
+    --primary-color: #4870ac;
+    /* Primary Color */
+    --bg-color: #ffffff;
+    /* Background */
+
+    --marker-color: #a2b6d4;
+    /* List Marker */
+    --highlight-color: #ffffb5c2;
+    /* Highlight */
+    --header-span-color: var(--primary-color);
+    /* h2 Span Color */
+    --block-bg-color: #f6f8fa;
+    /* Block Background */
+
+    /* Overwrite of Typora Base Color */
+    --control-text-hover-color: #a2b6d4;
+    --rawblock-edit-panel-bd: var(--block-bg-color);
+}
+
+/*
+ * Font-face for Cantarell, Source Han Serif CN and JetBrains Mono
+ */
+
+/*
+ * Basic Style
+ */
+
+#write {
+    max-width: 950px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    line-height: 1.6;
+    word-spacing: 0px;
+    letter-spacing: 0px;
+    word-break: break-word;
+    word-wrap: break-word;
+    text-align: justify;
+
+    font-family: 'Cantarell', 'SourceHanSerifCN', 'JetBrainsMono';
+    margin-bottom: 20rem;
+}
+
+/* Strong */
+
+#write strong {
+    color: var(--primary-color);
+}
+
+/* Link */
+
+#write a {
+    color: var(--primary-color);
+}
+
+#write .md-p a,
+#write .md-heading a {
+    text-decoration: none;
+    word-wrap: break-word;
+    border-bottom: 1px solid var(--primary-color);
+    margin: 2px;
+}
+
+[md-inline=url],
+[md-inline=link]>.md-content,
+[md-inline=image]>.md-meta {
+    word-break: break-all;
+    font-weight: normal;
+    font-family: 'JetBrainsMono';
+    padding-left: 0.15rem;
+    padding-right: 0rem;
+    color: #a2b6d4;
+}
+
+
+/* 
+ * TOC
+ */
+
+.md-toc-content {
+    font-family: 'SourceHanSerifCN';
+}
+
+.md-toc-content:empty:before {
+    color: var(--primary-color);
+}
+
+#write div.md-toc-tooltip {
+    font-family: 'SourceHanSerifCN';
+    color: var(--primary-color);
+    position: static;
+    margin-top: 10px;
+    background-color: var(--block-bg-color);
+    line-height: 1.6rem;
+    padding: 0.3rem 0.75rem;
+    border-top: none;
+    /* border-left: 2px solid var(--primary-color);
+     */
+    border-radius: .5rem;
+}
+
+.md-toc:focus .md-toc-content {
+    border-color: var(--bg-color);
+    margin: 9px -1px;
+    margin-top: 9px;
+}
+
+.md-toc .md-toc-content {
+    border-color: var(--bg-color);
+    margin: 10px 0px;
+    margin-top: 10px;
+}
+
+
+/* mark */
+
+mark {
+    background: var(--highlight-color);
+    padding: 1px .15rem;
+    border-radius: 1px;
+    color: inherit;
+}
+
+/* 
+ * Paragraph
+ */
+
+#write+p,
+#write blockquote p {
+    font-size: 1.1rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    margin: 0;
+    line-height: 1.8rem;
+    color: var(--text-color);
+}
+
+/*
+ * Header
+ */
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    font-family: 'SourceHanSerifCN';
+    padding: 0px;
+    color: var(--primary-color);
+}
+
+#write h1 {
+    text-align: center;
+}
+
+#write h2 span.md-plain {
+    background: var(--header-span-color);
+    padding: 1px 15px 2px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#write h2 span.md-link {
+    background: var(--header-span-color);
+    padding: 1px 11px 6px;
+    border-radius: 4px;
+}
+
+#write h2 span.md-link .md-plain {
+    background: #ffffff00;
+    padding: 1px 0px 3px;
+}
+
+#write h2 span.md-content {
+    color: #ffffff;
+}
+
+#write h2.md-heading a {
+    border-bottom: 1px solid white;
+}
+
+#write h2 span.md-inline-math {
+    background: var(--header-span-color);
+    padding: 1px 15px 2px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1.44;
+}
+
+#write h2 span.md-inline-math script {
+    color: #ffffff;
+}
+
+@media print {
+    #write h2 span {
+        display: inline-block;
+        font-weight: bold;
+        background: var(--primary-color);
+        color: #ffffff;
+        padding: 1px 15px 1px;
+        border-radius: 4px;
+        margin-right: 3px;
+    }
+
+    :root{
+        --text-color: rgb(0, 0, 0);
+    }
+}
+
+#write h1 {
+    font-size: 2rem;
+}
+
+#write h2 {
+    font-size: 1.5rem;
+}
+
+#write h3 {
+    font-size: 1.4rem;
+}
+
+#write h4 {
+    font-size: 1.2rem;
+}
+
+#write h5 {
+    font-size: 1.1rem;
+}
+
+#write h6 {
+    font-size: 1.1rem;
+}
+
+#write h1 {
+    padding-top: 0.9rem;
+    margin-bottom: 2.3rem;
+}
+
+#write h2 {
+    margin: 1.2em 0 1.2em;
+}
+
+#write h3 {
+    margin: 1em 0 1em;
+}
+
+#write h4 {
+    margin: 0.8em 0 0.8em;
+}
+
+#write h5 {
+    margin: 0.6em 0 0.6em;
+}
+
+#write h6 {
+    margin: 0.4em 0 0.4em;
+}
+
+/*
+ * List
+ */
+
+::marker {
+    font-weight: bold;
+    color: var(--marker-color);
+}
+
+li.md-list-item {
+    margin: 0.4rem 0;
+}
+
+#write ul,
+#write ol {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 20px;
+}
+
+#write ul {
+    list-style-type: disc;
+}
+
+#write em {
+    padding: 0 3px 0 0;
+}
+
+#write ul ul {
+    list-style-type: square;
+}
+
+#write ol {
+    list-style-type: decimal;
+}
+
+#write li section {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.7rem;
+    text-align: justify;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/*
+ * Quote
+ */
+#write blockquote {
+    display: block;
+    font-size: .9em;
+    overflow: auto;
+    border-left: 3px solid var(--primary-color);
+    padding: 15px 30px 15px 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background: var(--block-bg-color);
+}
+
+/*
+ * Inline code
+ */
+
+#write code {
+    color: var(--primary-color);
+    font-size: 94%;
+    font-weight: normal;
+    word-wrap: break-word;
+    padding: 2px 4px 2px;
+    border-radius: 3px;
+    margin: 2px;
+    background-color: var(--block-bg-color);
+    font-family: 'JetBrainsMono';
+    word-break: break-all;
+}
+
+/*
+ * Img
+ */
+#write img {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+#write p>.md-image:only-child:not(.md-img-error) img,
+#write p>img:only-child {
+    filter: drop-shadow(#d2dff4 0px 0px 8px);
+    border-radius: 3rem;
+    display: block;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/*
+ * Table
+ */
+#write table.md-table {
+    display: table;
+    text-align: justify;
+    overflow-x: auto;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    font-size: 1em;
+    margin: 0px 0px 20px;
+    width: 100%;
+}
+
+#write tbody {
+    border: 0;
+}
+
+#write table.md-table tr {
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+#write table.md-table tr th,
+#write table.md-table tr td {
+    font-size: 1rem;
+    border: 1px solid #d9dfe4;
+    padding: 5px 10px;
+    text-align: justify;
+}
+
+#write table.md-table tr th {
+    font-family: SourceHanSerifCN;
+    text-align: center;
+    min-width: 10rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+#write table tr td:hover,
+#write table tr th:hover {
+    background-color: var(--block-bg-color);
+}
+
+table.md-table td {
+    min-width: 32px;
+}
+
+/* Footnote */
+
+sup.md-footnote {
+    background-color: var(--block-bg-color);
+    color: var(--primary-color);
+}
+
+.md-def-name {
+    color: var(--primary-color);
+}
+
+/*
+ * Math Script 
+ */
+
+.md-inline-math script {
+    color: var(--primary-color);
+}
+
+.md-rawblock-control:not(.md-rawblock-tooltip) {
+    background: var(--bg-color);
+    color: var(--md-char-color);
+}
+
+
+.code-tooltip {
+    box-shadow: none;
+}
+
+.md-rawblock-tooltip.md-rawblock-control {
+    border-radius: 1rem;
+}
+
+.md-rawblock .md-rawblock-tooltip {
+    inset: auto 0.3rem auto auto;
+    transform: translateY(-120%);
+}
+
+/* 
+ * Comment
+ */
+.md-comment {
+    color: #a8a8a9;
+    opacity: 1;
+    font-family: 'JetBrainsMono';
+}
+
+/*
+ * Dividing line
+ */
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 2px solid #eef2f5;
+    border-radius: 2px;
+}
+
+/* Checkbox */
+
+#write input[type=checkbox] {
+    width: 0;
+}
+
+.task-list-item input::before {
+    content: "";
+    display: inline-block;
+    width: 1.0125rem;
+    height: 1.0125rem;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid var(--marker-color);
+    border-radius: 1.2rem;
+    background-color: #fdfdfd;
+    margin-left: -0.1rem;
+    margin-right: 0.1rem;
+    margin-top: -.6rem;
+}
+
+
+.task-list-item input:checked::before {
+    content: '✓';
+    font-weight: bold;
+    -webkit-text-stroke: 1px var(--primary-color);
+    color: var(--primary-color);
+    background-color: var(--bg-color);
+    font-size: 0.75rem;
+    line-height: 0.8rem;
+}
+
+/*
+ * Sidebar
+ */
+#typora-sidebar {
+    font-family: 'Cantarell', 'SourceHanSerifCN';
+    height: 100%;
+    color: #686d75;
+    font-size: 0.92rem;
+    background-color: var(--bg-color);
+}
+
+#sidebar-content.sidebar-content {
+    margin-top: .5rem;
+}
+
+.html-for-mac #write input[type=checkbox] {
+    margin-top: 0.65rem;
+}
+
+.html-for-mac #write .task-list-item input::before {
+    margin-top: -.85rem;
+}
+
+
+/*
+ * Sidebar - FileNode
+ */
+
+.active-tab-files #info-panel-tab-file .info-panel-tab-border,
+.active-tab-outline #info-panel-tab-outline .info-panel-tab-border,
+.ty-show-search #info-panel-tab-search .info-panel-tab-border {
+    border-radius: 10px;
+    height: 1px;
+    background-color: var(--primary-color);
+}
+
+.file-node-content {
+    color: var(--primary-color);
+    line-height: 1.6rem;
+}
+
+span.file-node-title-name-part {
+    color: var(--text-color);
+}
+
+span.file-node-title-ext-part {
+    color: var(--text-color);
+}
+
+.file-node-icon {
+    padding-right: 0.2rem;
+}
+
+.file-tree-node.active>.file-node-background {
+    background-color: var(--block-bg-color);
+    border-left: 4px solid var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/*
+ * Sidebar - Outline
+ */
+
+#outline-content {
+    height: 100%;
+    overflow-x: hidden;
+    line-height: 1.4rem;
+    font-size: .96rem;
+}
+
+.outline-item {
+    padding-left: 2em;
+}
+
+/* Meta Block */
+
+pre.md-meta-block {
+    font-family: 'JetBrainsMono';
+    color: var(--primary-color);
+    background: #f6f8fa;
+    padding: 1.5rem;
+    margin: -37px 0rem 3.8rem;
+    /* border-radius: 1rem; */
+    filter: drop-shadow(#d2dff4 0px 3px 3px);
+    /* border-top: 1px solid var(--primary-color); */
+    /* border-bottom: 1px solid var(--primary-color); */
+}
+
+pre.md-fences-advanced.md-focus .md-fences-adv-panel {
+    border-radius: .8rem;
+}
+
+/*
+ * Scrollbar
+ */
+
+#outline-content::-webkit-scrollbar {
+    width: .5rem;
+}
+
+#file-library::-webkit-scrollbar {
+    width: .5rem;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(179, 179, 179, 0.425);
+}
+
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+/* 
+ * Code Block - Style
+ */
+
+.md-fences:before {
+    content: ' ';
+    display: block;
+    width: 100%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-color: #282c34;
+    margin-bottom: -7px;
+    border-radius: 5px;
+    background-position: 10px 10px;
+}
+
+.CodeMirror-wrap .CodeMirror-scroll {
+    overflow-x: auto;
+}
+
+.md-fences .cm-s-inner.CodeMirror {
+    margin: 1.5rem 0;
+}
+
+.cm-s-inner.CodeMirror {
+    padding: 1.2rem .8rem;
+    color: #4f5467;
+    font-family: 'JetBrainsMono';
+    border-radius: 10px;
+    background-color: var(--block-bg-color);
+    /* border: 1px solid #eef2f5;*/
+    line-height: 1.6rem;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid #a2b6d452;
+    background: inherit;
+    white-space: nowrap;
+}
+
+pre.CodeMirror-line {
+    padding: 0 1.2rem;
+}
+
+.CodeMirror-linenumber {
+    padding: 0 3px 0 5px;
+    text-align: right;
+    color: var(--primary-color);
+}
+
+/* 
+ * Code Block - Color Scheme
+ */
+
+.cm-s-inner .cm-keyword {
+    color: #1694b6 !important;
+}
+
+.cm-s-inner .cm-operator {
+    color: #2f86d2 !important;
+}
+
+.cm-s-inner .cm-variable,
+.cm-s-inner .cm-builtin,
+.cm-s-inner .cm-header,
+.cm-s-inner .cm-tag,
+.cm-s-inner .cm-property,
+.cm-s-inner .cm-quote {
+    color: #b9218e !important;
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #7aadad !important;
+}
+
+.cm-s-inner .cm-variable-3,
+.cm-s-inner .cm-type,
+.cm-s-inner .cm-atom {
+    color: #378ed8 !important;
+}
+
+.cm-s-inner .cm-number {
+    color: #1a5494 !important;
+}
+
+.cm-s-inner .cm-def,
+.cm-s-inner .cm-qualifier {
+    color: #0744ac !important;
+}
+
+.cm-s-inner .cm-string {
+    color: #6f42c2 !important;
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #27638f !important;
+}
+
+.cm-s-inner .cm-comment {
+    color: #9a9a9a !important;
+}
+
+.cm-s-inner .cm-meta {
+    color: #0b93be !important;
+}
+
+.cm-s-inner .cm-attribute {
+    color: #8f6aa8 !important;
+}
+
+.cm-s-inner .cm-error {
+    color: rgba(255, 255, 255, 1) !important;
+    background-color: #b9218e40 !important;
+}
+
+.cm-s-inner .CodeMirror-matchingbracket {
+    text-decoration: underline;
+    color: white !important;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid var(--primary-color);
+    z-index: 3;
+}
+
+.cm-s-inner div.CodeMirror-selected {
+    background: rgba(167, 178, 189, 0.2) !important;
+}
+
+.cm-s-inner.CodeMirror-focused div.CodeMirror-selected {
+    background: rgba(167, 178, 189, 0.2) !important;
+}
+
+.cm-s-inner .CodeMirror-selected,
+.cm-s-inner .CodeMirror-selectedtext {
+    background-color: rgba(167, 178, 189, 0.0) !important;
+}
+
+.cm-s-inner .CodeMirror-line::-moz-selection,
+.cm-s-inner .CodeMirror-line>span::-moz-selection,
+.cm-s-inner .CodeMirror-line>span>span::-moz-selection {
+    background-color: rgba(167, 178, 189, 0.2);
+}
+
+.cm-s-inner .CodeMirror-line::selection,
+.cm-s-inner .CodeMirror-line>span::selection,
+.cm-s-inner .CodeMirror-line>span>span::selection {
+    background-color: rgba(167, 178, 189, 0.2);
+}
+
+/*
+ * Sitting - Unibody
+ */
+
+.megamenu-menu-header {
+    border: none;
+    color: var(--text-color);
+}
+
+.megamenu-menu-header #megamenu-back-btn,
+.megamenu-menu-header .megamenu-menu-header-title-back,
+.megamenu-menu-header .megamenu-menu-header-title-menu {
+    color: var(--text-color);
+}
+
+.megamenu-menu {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    box-shadow: none !important;
+}
+
+header,#megamenu-content {
+    background-color: var(--bg-color);
+    background-image: none !important;
+}
+
+
+
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG2"] path[data-c], mjx-container[jax="SVG2"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+							stroke-width: 0;
+						}
+</style><title>README</title>
+</head>
+<body class='typora-export'><div class='typora-export-content'>
+<div id='write'  class=''><div align = "center">
+    <!-- <image src = "./pics/logo.jpg" width = "50%"/> -->
+	<h1 align = "center">基于机器学习的分布式系统故障诊断系统</h1>    
+    <h4 align = "center">系统治愈师团队 | System Healer Team</h4>
+</div><blockquote><p><span>Github仓库地址：</span><a href='https://github.com/dekrt/SystemHealer' target='_blank' class='url'>https://github.com/dekrt/SystemHealer</a></p></blockquote><h2 id='一信息介绍'><span>一、信息介绍</span></h2><p><span>大数据时代，分布式系统成为信息存储和处理的主流系统。相对于传统系统而言，分布式系统更为庞大和复杂，故障发生的平均几率比较高，其运维的难度和复杂度大大提高。如何对分布式系统进行高效、准确的运维，成为保障信息系统高效、可靠运行的关键问题。</span>
+<span>为此，我们团队设计了故障诊断模型，可以高效地分析并识别故障类别，实现分布式系统故障运维的智能化，快速恢复故障的同时大大降低分布式系统运维工作的难度，减少运维对人力资源的消耗。</span></p><p><span>在分布式系统中某个节点发生故障时，故障会沿着分布式系统的拓扑结构进行传播，造成自身节点及其邻接节点相关的</span><code>KPI</code><span>指标和发生大量日志异常。中兴通讯为我们提供分布式数据库的故障特征数据和标签数据，其中特征数据是系统发生故障时的</span><code>KPI</code><span>指标数据，KPI指标包括由</span><code>feature0、feature1 ...feature106</code><span>共107个指标，标签数据为故障类别数据，共6个类别，用0、1、2、3、4、5分别表示6个故障，根据这些数据，我们借助机器学习、深度学习、web等技术搭建故障诊断系统，该系统支持用户上传训练集对模型进行训练和模型下载，同时支持用户上传单条或多条测试语句进行测试并可视化测试结果，同支持测试结果与模型的下载。</span></p><p><span>我们的项目采用</span><code>Django + BootStrap</code><span>为框架进行web系统的开发，模型采用</span><code>多层感知机（MLP）模型</code><span>，它是一种用于处理监督学习问题的神经网络，是一种前馈神经网络，在处理此类问题上具有不俗的表现。</span></p><p><span>下面是我们团队的分工：</span></p><figure class='table-figure'><table><thead><tr><th><span>团队成员</span></th><th><span>分工</span></th><th><span>备注</span></th></tr></thead><tbody><tr><td><span>张骁凯</span></td><td><span>负责</span><code>Django web</code><span>框架的搭建，测试即Web服务器的部署</span></td><td><span>队长</span></td></tr><tr><td><span>杨尚君</span></td><td><span>负责数据预处理部的编写、测试，前端页面的设计与实现</span></td><td><span>队员</span></td></tr><tr><td><span>李思成</span></td><td><span>负责深度学习模型的搭建，测试，参数调整和数据可视化</span></td><td><span>队员</span></td></tr></tbody></table></figure><h2 id='二web系统介绍'><span>二、Web系统介绍</span></h2><h3 id='21-概述'><span>2.1 概述</span></h3><p><span>网页基于web3开发，主要使用html5+css3+js，使用bootstrap和jQuary框架构建交互操作，提高了web系统的美观性、易用性。</span></p><p><span>web系统分为头部栏、上传训练模块和结果分析模块，用户可以在用户栏访问到有关模型、算法的更多信息；上传训练模块给出了文件提示和上传训练数据、预测数据的接口；结果分析模块在未上传数据时给出了样例图标，上传数据训练和预测后会根据结果生成结果分析图标，供用户对模型进行评估。</span></p><p><span>用户初次进入web系统，网页处于初始状态，未选择上传的文件时，点击上传的按钮被禁用，同时下方结果分析模块处于默认状态；用户选择文件后，“点击上传”按钮处于激活状态，上传后，后端进行模型训练并返回结果，等待训练完毕后，用户可以在下方看到各类别所占比例的饼状图、分类结果可视化的tsne图、训练集和验证集损失随迭代次数变化的折线图，通过这些图用户可以对模型有基本的认识。</span></p><p><span>训练完毕后，用户可以上传需要预测的数据，等待模型预测后，同样的可以在下方看到预测结果的分析图标。在上传模块可以下载预测结果文件和模型文件，便于保存训练好的模型。</span><span>	</span></p><h3 id='22-部署方法'><span>2.2 部署方法</span></h3><h4 id='221-使用脚本进行部署'><span>2.2.1 使用脚本进行部署</span></h4><p><span>在</span><code>SystemHealer/</code><span>目录运行</span><code>setup.sh</code><span>脚本，可以一键构建环境，安装有关依赖，并打开默认浏览器预览网页。</span></p><p><span>如果系统没有打开浏览器，可以在构建完成之后手动输入</span><a href='http://127.0.0.1:8000' target='_blank' class='url'>127.0.0.1:8000</a><span>或者</span><a href='localhost:8000' target='_blank' class='url'>localhost:8000</a><span>来访问web系统。</span></p><h4 id='222-使用-docker-进行部署'><span>2.2.2 使用 Docker 进行部署</span></h4><p><span>在</span><code>SystemHealer/</code><span>目录运行以下命令来构建 Docker 镜像：</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9894px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">docker build <span class="cm-attribute">-t</span> systemhealer .</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p><span>构建完成后，运行以下命令来启动 Docker 容器：</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9897px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">docker run <span class="cm-attribute">-p</span> <span class="cm-number">8000</span>:8000 systemhealer</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p><span>现在，您可以在浏览器中输入</span><a href='http://127.0.0.1:8000' target='_blank' class='url'>127.0.0.1:8000</a><span>或 </span><code>localhost:8000</code><span> 来访我们的Web系统。</span></p><h2 id='三模型介绍'><span>三、模型介绍</span></h2><p><span>我们的项目采用</span><code>多层感知机（MLP）模型</code><span>，它是一种用于处理监督学习问题的神经网络，是一种前馈神经网络，在处理此类问题上具有不俗的表现。下面是我们项目中MP的定义：</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9897px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">MLP</span>(<span class="cm-variable">nn</span>.<span class="cm-property">Module</span>):</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">input_size</span>, <span class="cm-variable">hidden_size</span>, <span class="cm-variable">num_classes</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">super</span>(<span class="cm-variable">MLP</span>, <span class="cm-variable-2">self</span>).<span class="cm-property">__init__</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">fc1</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-variable">input_size</span>, <span class="cm-variable">hidden_size</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">fc2</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-variable">hidden_size</span>, <span class="cm-variable">hidden_size</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">fc3</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-variable">hidden_size</span>, <span class="cm-variable">hidden_size</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">fc4</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-variable">hidden_size</span>, <span class="cm-variable">num_classes</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">activation</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">LeakyReLU</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">forward</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">x</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">fc1</span>(<span class="cm-variable">x</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">activation</span>(<span class="cm-variable">out</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">fc2</span>(<span class="cm-variable">out</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">activation</span>(<span class="cm-variable">out</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">fc3</span>(<span class="cm-variable">out</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">activation</span>(<span class="cm-variable">out</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">out</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">fc4</span>(<span class="cm-variable">out</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">out</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 403px;"></div><div class="CodeMirror-gutters" style="display: none; height: 403px;"></div></div></div></pre><p><span>在这个模型中，我们有一个输入层，两个隐藏层，以及一个输出层。首先，我们定义了一个名为</span><code>MLP</code><span>的类，它继承了</span><code>PyTorch</code><span> 的 </span><code>nn.Module</code><span> 类。</span><code>nn.Module</code><span>是所有神经网络模块的基类，我们自定义的模型也继承这个类。</span></p><p><span>在</span><code>MLP</code><span>类的构造函数中，我们定义了四个全连接层（也称为线性层）。每个全连接层都使用</span><code>nn.Linear</code><span>类创建，该类在输入数据上应用线性变换。第一个全连接层（</span><code>fc1</code><span>）的输入大小为</span><code>input_size</code><span>，输出大小为</span><code>hidden_size</code><span>。接下来的两个全连接层（</span><code>fc2</code><span>和</span><code>fc3</code><span>）的输入和输出大小都是</span><code>hidden_size</code><span>。最后一个全连接层（</span><code>fc4</code><span>）的输入大小为</span><code>hidden_size</code><span>，输出大小为 </span><code>num_classes</code><span>，这表示我们的模型将输出 </span><code>num_classes</code><span>个类别的预测。</span></p><p><span>我们还定义了一个激活函数，使用了 </span><code>nn.LeakyReLU</code><span> 类。</span><code>LeakyReLU</code><span> 是修正线性单元（</span><code>ReLU</code><span>）的一个变种，它解决了 </span><code>ReLU</code><span> 的</span><code>死亡 ReLU</code><span>问题，即一些神经元可能会停止学习，因为它们进入了一个永远不会被激活的状态。</span></p><p><span>在前向传播函数（forward）中，我们将输入数据 x 通过每个全连接层和激活函数，最后输出结果。注意，我们没有在最后一个全连接层后应用激活函数，这是因为我们通常会在计算损失函数时使用包含激活函数的损失函数，例如</span><code>nn.CrossEntropyLoss</code><span>。</span></p><p><span>使用多层感知机模型有以下优点和特点：</span></p><ol start='' ><li><p><strong><span>处理监督学习问题：</span></strong><span> 多层感知机（</span><code>MLP</code><span>）是一种用于处理监督学习问题的神经网络模型。监督学习是一种机器学习任务，其中模型从带有标签的训练数据中学习，并预测未标记数据的标签。</span><code>MLP</code><span>通过前向传播算法和反向传播算法来学习输入数据与标签之间的关系。</span></p></li><li><p><strong><span>前馈神经网络：</span></strong><span> </span><code>MLP</code><span>是一种前馈神经网络，这意味着数据在网络中沿一个方向流动，不会形成循环连接。这种结构使得</span><code>MLP</code><span>可以对输入数据进行逐层处理，每一层都产生中间的表示，最终输出预测结果。</span></p></li><li><p><strong><span>多层结构</span></strong><span>：</span><code>MLP</code><span>包含多个层次的神经元，通常包括输入层、隐藏层和输出层。隐藏层是位于输入层和输出层之间的层次，通过这些层次可以学习更加复杂和抽象的特征表示。在给定足够的隐藏单元和适当的参数设置下，</span><code>MLP</code><span>可以学习到非线性关系，从而具备更强的模型表达能力。</span></p></li><li><p><strong><span>全连接层：</span></strong><span> </span><code>MLP</code><span>的每个层都是全连接层，也称为线性层。全连接层中的神经元与上一层的所有神经元都有连接，这样可以实现输入数据和权重的线性组合，并通过激活函数引入非线性。</span></p></li><li><p><strong><span>激活函数：</span></strong><span> 在</span><code>MLP</code><span>中，我们使用了</span><code>LeakyReLU</code><span>作为激活函数。激活函数的作用是引入非线性，使得模型可以学习非线性关系。</span><code>LeakyReLU</code><span>是修正线性单元（</span><code>ReLU</code><span>）的一个改进版本，当输入小于零时，它引入一个小的斜率，避免了</span><code>ReLU</code><span>的“死亡神经元”问题。</span></p></li><li><p><strong><span>模型训练：</span></strong><span> </span><code>MLP</code><span>通过前向传播和反向传播算法进行模型训练。前向传播是将输入数据通过网络的每一层，得到最终的预测结果。反向传播通过计算预测结果与真实标签之间的误差，并沿着网络的方向更新权重，使得模型能够逐渐减小误差，提高预测的准确性。</span></p></li><li><p><strong><span>模型应用：</span></strong><span> </span><code>MLP</code><span>模型在分类和回归等监督学习任务中表现出色。它可以处理各种类型的输入数据，例如图像、文本、声音等。</span><code>MLP</code><span>的强大表达能力和灵活性使得它成为机器学习和深度学习领域的重要工具之一。</span></p></li></ol><p><span>总之，</span><code>MLP</code><span>模型是一种灵活且强大的神经网络模型，适用于处理各种监督学习问题。它的多层结构和全连接层使其能够学习非线性模型，并通过适当的调整隐藏层的数量和大小来控制模型的复杂性。在我们的项目中，采用MLP模型可以有效处理分布式故障诊断等任务，并获得优秀的结果。</span></p><h2 id='四实现思路'><span>四、实现思路</span></h2><h3 id='41-数据预处理'><span>4.1 数据预处理</span></h3><p><span>在我们的故障诊断系统中，数据预处理是一个重要的步骤。我们需要确保输入到模型的数据是完整的，没有缺失值，并且格式正确。下面是我们进行数据预处理的主要步骤：</span></p><h4 id='411-去除重复值'><span>4.1.1 去除重复值</span></h4><p><span>首先，我们使用</span><code>drop_duplicates</code><span>函数去除数据中的重复值。这是一个重要的步骤，因为重复的数据点可能会导致模型过拟合，即模型过于复杂，以至于它开始记忆训练数据，而不是从中学习模式。当我们的数据集中存在重复的样本时，模型在训练过程中可能会过度关注这些重复样本，导致对它们的预测过于自信，而对其他样本的泛化能力下降。</span></p><p><span>重复数据的存在可能是由于多种原因引起的，例如数据收集过程中的误操作、系统错误或者数据来源的特殊性。无论是哪种情况，重复数据都可能对我们的分析和建模过程产生负面影响，因此需要及时处理。</span></p><p><span>通过调用</span><code>drop_duplicates</code><span>函数并将参数</span><code>inplace</code><span>设置为</span><code>True</code><span>，我们可以直接在原始数据上进行修改，而无需创建新的数据副本。这样做不仅可以减少内存的使用，还可以提高代码的执行效率。</span></p><p><code>drop_duplicates</code><span>函数会比较数据集中的每个数据点，并检查其与其他数据点是否完全相同。如果找到了重复的数据点，函数会将其删除，只保留一个副本。这样，我们就能确保数据集中的每个样本都是唯一的，避免了冗余数据的干扰。</span></p><p><span>通过去除重复数据，我们可以消除数据集中的冗余信息，提高模型的训练效果。当模型面临更清晰、更准确的数据时，它可以更好地学习数据中的模式和规律。这将有助于改善模型的泛化能力，使其能够更好地应用于未见过的数据，从而提高预测和决策的准确性。</span></p><p><span>总之，去除重复数据是数据预处理的重要一步，它有助于净化数据集，提高模型的性能和鲁棒性。在进行任何进一步的分析和建模之前，我们应该始终注意并处理数据中的重复值，以确保我们所使用的数据是可靠、准确且唯一的。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9899px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">preprocess</span>(<span class="cm-variable">data</span>):</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment"># 去掉重复值</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">data</span>.<span class="cm-property">drop_duplicates</span>(<span class="cm-variable">inplace</span><span class="cm-operator">=</span><span class="cm-keyword">True</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 67px;"></div><div class="CodeMirror-gutters" style="display: none; height: 67px;"></div></div></div></pre><h4 id='412-缺失值处理'><span>4.1.2 缺失值处理</span></h4><p><span>然后，我们使用</span><code>IterativeImputer</code><span>类来填充数据中的缺失值。</span><code>IterativeImputer</code><span>是一种高级的填充方法，它通过迭代的方式使用其他特征的值来预测缺失值，并在每次迭代中更新缺失值的预测结果。这种迭代的过程可以提高填充的准确性和可靠性。</span></p><p><span>在代码中，我们创建了一个名为</span><code>imputer</code><span>的</span><code>IterativeImputer</code><span>对象，并设置了</span><code>random_state</code><span>为0，以确保每次运行时得到相同的结果。接下来，我们使用</span><code>imputer.fit_transform(data)</code><span>方法对数据进行拟合和转换操作，其中</span><code>data</code><span>是待填充的数据集。</span></p><p><span>在拟合的过程中，</span><code>IterativeImputer</code><span>会首先对数据集中的特征进行分析，并建立一个预测模型来预测缺失值。然后，它使用已有的非缺失值特征作为输入，利用建立的模型来预测缺失值。这个过程会不断迭代，直到达到收敛条件或者达到预先设定的最大迭代次数。</span></p><p><span>转换的结果是一个新的数据集data_imputed，它是一个</span><code>DataFrame</code><span>对象，具有与原始数据相同的列名。这个新数据集中的缺失值已经被填充，不再存在。为了保持一致性，我们将</span><code>data_imputed</code><span>的列名设置为与原始数据相同。</span></p><p><span>接着，我们通过</span><code>data_imputed.dropna()</code><span>方法去除仍然存在缺失值的行，以保证数据的完整性和一致性。然后，我们将数据集中的目标变量（标签）提取出来，存储在y变量中，以备后续的建模和分析使用。</span></p><p><span>最后，根据需求，我们定义了一个列表</span><code>columns_to_drop</code><span>，其中包含需要从数据集中删除的特征列名。通过调用</span><code>data_imputed.drop(columns_to_drop, axis=1)</code><span>，我们可以删除这些特征列，以满足后续分析的需要。经过这一步操作后，</span><code>data_imputed</code><span>将只包含用于建模的特征列，不再包含标签列。</span></p><p><span>总结而言，我们进行了一次完整的数据预处理流程，包括使用</span><code>IterativeImpute</code><span>类进行缺失值填充，删除含有缺失值的行，提取标签列，并根据需求删除特定的特征列。通过这些处理步骤，我们能够准备好适用于机器学习模型训练和分析的数据集。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9894px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">imputer</span> <span class="cm-operator">=</span> <span class="cm-variable">IterativeImputer</span>(<span class="cm-variable">random_state</span><span class="cm-operator">=</span><span class="cm-number">0</span>)</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">data_imputed</span> <span class="cm-operator">=</span> <span class="cm-variable">imputer</span>.<span class="cm-property">fit_transform</span>(<span class="cm-variable">data</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">data_imputed</span> <span class="cm-operator">=</span> <span class="cm-variable">pd</span>.<span class="cm-property">DataFrame</span>(<span class="cm-variable">data_imputed</span>, <span class="cm-variable">columns</span><span class="cm-operator">=</span><span class="cm-variable">data</span>.<span class="cm-property">columns</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">data_imputed</span> <span class="cm-operator">=</span> <span class="cm-variable">data_imputed</span>.<span class="cm-property">dropna</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">y</span> <span class="cm-operator">=</span> <span class="cm-variable">data_imputed</span>[<span class="cm-string">'label'</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">columns_to_drop</span> <span class="cm-operator">=</span> [<span class="cm-string">'label'</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">data_imputed</span> <span class="cm-operator">=</span> <span class="cm-variable">data_imputed</span>.<span class="cm-property">drop</span>(<span class="cm-variable">columns_to_drop</span>, <span class="cm-variable">axis</span><span class="cm-operator">=</span><span class="cm-number">1</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 157px;"></div><div class="CodeMirror-gutters" style="display: none; height: 157px;"></div></div></div></pre><h4 id='413-标准化处理'><span>4.1.3 标准化处理</span></h4><p><span>最后，我们使用</span><code>StandardScaler</code><span>类对数据进行标准化。标准化是一种常见的预处理步骤，它可以将所有特征的值调整到同一尺度，通常是均值为0，标准差为1。这个过程涉及两个主要步骤：计算每个特征的均值和标准差，然后将每个特征的值减去均值并除以标准差。</span></p><p><span>首先，我们创建了一个名为scaler的</span><code>StandardScaler</code><span>对象。这个对象将用于计算均值和标准差，并进行标准化转换。然后，我们使用</span><code>fit_transform</code><span>方法将数据集</span><code>data_imputed</code><span>传递给</span><code>scaler</code><span>对象进行处理。</span><code>fit_transform</code><span>方法执行了两个步骤：首先，它通过计算每个特征的均值和标准差来学习数据集的统计信息，然后将数据集进行标准化转换。</span></p><p><span>标准化的目的是消除不同特征之间的量纲差异，确保它们都在相同的尺度上进行比较。在机器学习中，很多算法都对特征的尺度敏感。如果特征具有不同的尺度，某些特征的值范围可能会主导算法的训练过程，导致其他特征的影响力被忽略。通过将所有特征标准化到相同的尺度，我们可以确保每个特征对算法的影响程度是均等的。</span></p><p><span>标准化还有助于提高算法的收敛速度和稳定性。某些优化算法（如梯度下降）在处理标准化的数据时更容易找到最优解。此外，标准化还可以提高特征的解释性。当特征处于相同的尺度上时，我们可以更直观地理解它们对目标变量的影响。</span></p><p><span>需要注意的是，标准化是在训练数据上进行的，并且使用同一套参数对测试数据进行相同的标准化处理。这是为了保持训练集和测试集之间的一致性。在实际应用中，我们通常会将整个数据集划分为训练集和测试集，并且只使用训练集的统计信息来进行标准化，以避免测试集信息泄露。</span></p><p><span>总之，通过使用</span><code>StandardScaler</code><span>类对数据进行标准化，我们可以消除特征之间的尺度差异，提高机器学习算法的效果，并增强特征的解释能力。这是一个在数据预处理中常用且重要的步骤，为我们提供了更可靠和一致的分析结果。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9894px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">scaler</span> <span class="cm-operator">=</span> <span class="cm-variable">StandardScaler</span>()</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">data_standerd</span> <span class="cm-operator">=</span> <span class="cm-variable">scaler</span>.<span class="cm-property">fit_transform</span>(<span class="cm-variable">data_imputed</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">return</span> <span class="cm-variable">data_standerd</span>, <span class="cm-variable">y</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 67px;"></div><div class="CodeMirror-gutters" style="display: none; height: 67px;"></div></div></div></pre><h3 id='42-过采样处理'><span>4.2 过采样处理</span></h3><p><span>然后，我们使用</span><code>KMeansSMOTE</code><span>类进行过采样。</span><code>KMeansSMOTE</code><span>是一种用于处理不平衡数据集的技术，它结合了</span><code>K-Means</code><span>聚类和</span><code>SMOTE</code><span>（合成少数类过采样技术）来生成新的少数类样本。</span><code>K-Means</code><span>聚类是一种常见的无监督学习算法，通过将数据分为</span><code>K</code><span>个簇来寻找数据的内在结构。它根据数据的特征相似性将样本分组，将相似的样本归为同一簇，从而在数据中发现隐藏的模式和结构。</span></p><p><span>在我们的情况中，</span><code>KMeansSMOTE</code><span>利用</span><code>K-Means</code><span>聚类算法对数据集进行聚类，将样本分成不同的簇。然后，针对少数类样本较少的簇，我们使用</span><code>SMOTE</code><span>技术生成合成样本。</span><code>SMOTE</code><span>（</span><code>Synthetic Minority Over-sampling Technique</code><span>）是一种经典的过采样技术，它通过插值生成新的合成少数类样本，以增加少数类的样本数量。</span></p><p><code>KMeansSMOTE</code><span>的主要优势在于它结合了两种方法的优点：</span><code>K-Means</code><span>聚类可以帮助我们理解数据集的结构和模式，而</span><code>SMOTE</code><span>可以增加样本数量来平衡类别不平衡问题。通过将这两种技术结合起来，</span><code>KMeansSMOTE</code><span>可以生成更加合理和真实的合成样本，有助于改善模型的性能和泛化能力。</span></p><p><span>通过使用</span><code>KMeansSMOTE</code><span>进行过采样，我们能够解决数据集中存在的类别不平衡问题。类别不平衡可能导致模型对多数类样本进行过度拟合，从而忽略少数类样本。通过生成合成样本，我们可以增加少数类样本的数量，使得模型能够更好地学习并识别少数类的特征和模式。</span></p><p><span>总结而言，</span><code>KMeansSMOTE</code><span>是一种结合了</span><code>K-Means</code><span>聚类和</span><code>SMOTE</code><span>技术的过采样方法，适用于处理不平衡数据集。它通过聚类分析和合成样本生成，帮助我们处理类别不平衡问题，提高模型性能和泛化能力。这种技术在许多实际应用中被广泛使用，特别是在医疗诊断、金融风险预测和欺诈检测等领域，以处理不平衡数据集并改善模型的预测能力。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9894px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">kmeans_smote</span> <span class="cm-operator">=</span> <span class="cm-variable">KMeansSMOTE</span>(<span class="cm-variable">random_state</span><span class="cm-operator">=</span><span class="cm-number">42</span>)</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">X_train</span>, <span class="cm-variable">y_train</span> <span class="cm-operator">=</span> <span class="cm-variable">kmeans_smote</span>.<span class="cm-property">fit_resample</span>(<span class="cm-variable">X_train</span>, <span class="cm-variable">y_train</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 45px;"></div><div class="CodeMirror-gutters" style="display: none; height: 45px;"></div></div></div></pre><h3 id='43-损失函数和优化器'><span>4.3 损失函数和优化器</span></h3><p><span>然后，我们定义了</span><code>criterion</code><span>损失函数和</span><code>optimizer</code><span>优化器。损失函数是</span><code>nn.CrossEntropyLoss()</code><span>，这是一种常用于多分类问题的损失函数。交叉熵损失函数用于衡量模型的预测结果与实际标签之间的差异。通过最小化交叉熵损失，我们可以优化模型的分类性能。</span></p><p><span>而优化器是</span><code>optim.Adam(model.parameters(), lr=0.0001)</code><span>，它是一种基于梯度的优化算法。Adam优化器结合了动量（momentum）和自适应学习率的特性，能够高效地更新模型的参数。它根据参数的梯度信息自适应地调整学习率，从而在训练过程中实现更快速的收敛和更好的性能。</span></p><p><span>在初始化Adam优化器时，我们传入了模型的参数</span><code>model.parameters()</code><span>和学习率lr=0.0001。模型的参数是需要被优化的权重和偏置项，在训练过程中通过反向传播算法来更新这些参数，使得损失函数最小化。学习率决定了每次参数更新的步长大小，较小的学习率可以使得模型更稳定地收敛，但训练速度可能较慢，而较大的学习率可能导致训练过程不稳定或错过最优解。</span></p><p><span>综上所述，通过定义交叉熵损失函数和Adam优化器，我们为模型训练提供了损失的度量和参数更新的策略。这将帮助我们在训练过程中逐步优化模型，提高其对多分类任务的性能。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9899px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">criterion</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">CrossEntropyLoss</span>()</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">optimizer</span> <span class="cm-operator">=</span> <span class="cm-variable">optim</span>.<span class="cm-property">Adam</span>(<span class="cm-variable">model</span>.<span class="cm-property">parameters</span>(), <span class="cm-variable">lr</span><span class="cm-operator">=</span><span class="cm-number">0.0001</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 45px;"></div><div class="CodeMirror-gutters" style="display: none; height: 45px;"></div></div></div></pre><h3 id='44-earlystopping--早停策略'><span>4.4 EarlyStopping | 早停策略</span></h3><p><code>EarlyStopping</code><span>（早停策略）是一种在训练过程中用于自动确定何时停止训练的技术。它基于模型的性能指标，例如验证集上的损失函数值，来判断模型是否已经达到了最佳状态或者是否进入了过拟合状态。当模型的性能不再改善或开始恶化时，</span><code>EarlyStopping</code><span>能够及时中断训练，从而避免浪费计算资源和时间。</span></p><p><span>我们的代码中定义了一个名为</span><code>EarlyStopping</code><span>的类，用于实现提前停止的功能。它具有以下属性：</span></p><ul><li><p><code>patience</code><span>（耐心）：指定在性能不再改善之前要等待的训练轮次数。如果在等待的轮次数内模型性能没有改善，则触发提前停止。</span></p></li><li><p><code>verbose</code><span>（冗长模式）：控制是否打印出提前停止的计数信息。</span></p></li><li><p><code>delta</code><span>（变化阈值）：用于定义性能改善的最小阈值。只有当性能指标的变化超过此阈值时，才被认为是真正的改善。</span></p></li></ul><p><span>在初始化过程中，我们设置了一些初始变量。</span><code>counter</code><span>（计数器）用于跟踪在等待期间模型性能没有改善的训练轮次数。</span><code>best_score</code><span>（最佳分数）用于存储当前最佳的性能指标。</span><code>early_stop</code><span>（提前停止标志）用于指示是否应该提前停止训练。</span><code>val_loss_min</code><span>（最小验证损失）初始化为正无穷大，用于跟踪最佳验证损失的值。</span></p><p><code>__call__</code><span>方法是该类的主要方法，用于每次验证集上计算损失函数后的回调。它接收验证集上的损失值</span><code>val_loss</code><span>和模型实例</span><code>model</code><span>作为输入参数。在每次调用时，它首先将</span><code>val_loss</code><span>转换为分数（负数，因为我们的目标是最小化损失函数）。然后，它根据以下几种情况来判断是否需要提前停止训练：</span></p><ol start='' ><li><p><span>如果</span><code>best_score</code><span>为</span><code>None</code><span>（即第一次调用），则将当前分数设置为</span><code>best_score</code><span>，并保存模型的检查点（即模型的当前状态）。</span></p></li><li><p><span>否则，如果当前分数小于等于</span><code>best_score + delta</code><span>，则说明模型性能没有改善。此时，</span><code>counter</code><span>增加1，并打印出当前的提前停止计数信息。如果</span><code>counter</code><span>达到或超过了</span><code>patience</code><span>，则将</span><code>early_stop</code><span>设置为</span><code>True</code><span>，表示应该提前停止训练。</span></p></li><li><p><span>否则，如果当前分数大于</span><code>best_score + delta</code><span>，说明模型性能有所改善。我们更新</span><code>best_score</code><span>为当前分数，并保存模型的检查点。同时，将</span><code>counter</code><span>重置为0，以便在下一次等待期间重新计数。</span></p></li></ol><p><span>通过使用</span><code>EarlyStopping</code><span>，我们可以在模型开始过拟合之前自动停止训练，从而提高模型的泛化能力。这对于大型模型或训练时间较长的任务尤为重要，因为它可以避免不必要的计算开销和时间浪费。代码片段中的</span><code>np.Inf</code><span>表示正无穷大，是</span><code>numpy</code><span>库中的一个特殊值，用于初始化最小验证损失。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="py" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="py"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9894px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">EarlyStopping</span>:</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">patience</span><span class="cm-operator">=</span><span class="cm-number">7</span>, <span class="cm-variable">verbose</span><span class="cm-operator">=</span><span class="cm-keyword">False</span>, <span class="cm-variable">delta</span><span class="cm-operator">=</span><span class="cm-number">0</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">patience</span> <span class="cm-operator">=</span> <span class="cm-variable">patience</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">verbose</span> <span class="cm-operator">=</span> <span class="cm-variable">verbose</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">counter</span> <span class="cm-operator">=</span> <span class="cm-number">0</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">best_score</span> <span class="cm-operator">=</span> <span class="cm-keyword">None</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">early_stop</span> <span class="cm-operator">=</span> <span class="cm-keyword">False</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">val_loss_min</span> <span class="cm-operator">=</span> <span class="cm-variable">np</span>.<span class="cm-property">Inf</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">delta</span> <span class="cm-operator">=</span> <span class="cm-variable">delta</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__call__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">val_loss</span>, <span class="cm-variable">model</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">score</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-variable">val_loss</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable-2">self</span>.<span class="cm-property">best_score</span> <span class="cm-keyword">is</span> <span class="cm-keyword">None</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">best_score</span> <span class="cm-operator">=</span> <span class="cm-variable">score</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">save_checkpoint</span>(<span class="cm-variable">val_loss</span>, <span class="cm-variable">model</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable">score</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">self</span>.<span class="cm-property">best_score</span> <span class="cm-operator">+</span> <span class="cm-variable-2">self</span>.<span class="cm-property">delta</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">counter</span> <span class="cm-operator">+=</span> <span class="cm-number">1</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">print</span>(<span class="cm-string">f'EarlyStopping counter: </span>{<span class="cm-variable-2">self</span>.<span class="cm-property">counter</span>}<span class="cm-string"> out of </span>{<span class="cm-variable-2">self</span>.<span class="cm-property">patience</span>}<span class="cm-string">'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable-2">self</span>.<span class="cm-property">counter</span> <span class="cm-operator">&gt;=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">patience</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">early_stop</span> <span class="cm-operator">=</span> <span class="cm-keyword">True</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">best_score</span> <span class="cm-operator">=</span> <span class="cm-variable">score</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">save_checkpoint</span>(<span class="cm-variable">val_loss</span>, <span class="cm-variable">model</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">counter</span> <span class="cm-operator">=</span> <span class="cm-number">0</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 560px;"></div><div class="CodeMirror-gutters" style="display: none; height: 560px;"></div></div></div></pre><h3 id='45-训练保存模型'><span>4.5 训练、保存模型</span></h3><blockquote><p><span>代码中涉及到</span><code>t-SNE</code><span>算法的部分，将在</span><code>六、结果分析</code><span>的分析进行详解。</span></p></blockquote><p><span>在我们的代码中，模型的训练和保存流程如下：</span></p><p><span>首先，我们定义了一些训练参数，包括训练的轮数（</span><code>num_epochs</code><span>）、每批次的样本数（</span><code>batch_size</code><span>）以及早停策略（</span><code>EarlyStopping</code><span>）。</span></p><p><span>接着，我们通过循环迭代每个训练轮次（</span><code>epoch</code><span>）。在每个轮次中，我们使用随机排列（</span><code>permutation</code><span>）的方式对训练数据集（</span><code>X_train</code><span>）进行处理，以获取随机的批次索引（</span><code>indices</code><span>）。然后，根据这些索引获取相应的训练样本（</span><code>batch_X</code><span>）和标签（</span><code>batch_y</code><span>）。</span></p><p><span>在获取了训练样本和标签后，我们进行前向传播，将批次样本输入模型（</span><code>model</code><span>），得到模型的输出（</span><code>outputs</code><span>）。然后，我们计算损失函数（</span><code>loss</code><span>）来评估模型的预测结果与真实标签之间的差异。</span></p><p><span>在计算了损失后，我们进行反向传播和优化。首先，我们将梯度归零（</span><code>optimizer.zero_grad()</code><span>），然后根据损失进行反向传播（</span><code>loss.backward()</code><span>），最后执行优化器的一步更新（</span><code>optimizer.step()</code><span>）来更新模型的参数。</span></p><p><span>在每个轮次结束后，我们打印训练损失（</span><code>loss.item()</code><span>）和验证集损失（</span><code>loss_test.item()</code><span>），并将它们分别添加到训练损失列表（</span><code>train_loss_list</code><span>）和测试损失列表（</span><code>test_loss_list</code><span>）中。</span></p><p><span>接下来，我们进行模型在测试集上的评估，通过将测试集样本（</span><code>X_test</code><span>）输入模型，得到预测结果（</span><code>outputs</code><span>）。然后，我们计算预测的准确率（</span><code>accuracy</code><span>）并打印出来。</span></p><p><span>我们还计算模型在验证集上的损失（</span><code>val_loss</code><span>）。然后，我们运行早停策略（</span><code>early_stopping</code><span>）来判断是否提前停止训练，如果满足早停的条件（</span><code>early_stopping.early_stop</code><span>），则打印&quot;early stop&quot;并跳出训练循环。</span></p><p><span>在所有训练轮次完成后，在测试集上进行最终评估，计算模型的准确率并打印出来。</span></p><p><span>最后，我们调用</span><code>torch.save</code><span>函数对模型进行保存，并更新模型保存的路径。这样，我们就完成了模型的训练和保存流程。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9889px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">train</span>(<span class="cm-variable">input_path</span>, <span class="cm-variable">file_basic_path</span>, <span class="cm-variable">output_path</span>):</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">global</span> <span class="cm-variable">input_size_global</span>, <span class="cm-variable">model_path</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">train_loss_list</span> <span class="cm-operator">=</span> []</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">test_loss_list</span> <span class="cm-operator">=</span> []</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">data</span> <span class="cm-operator">=</span> <span class="cm-variable">pd</span>.<span class="cm-property">read_csv</span>(<span class="cm-variable">input_path</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">X_train</span>, <span class="cm-variable">y_train</span> <span class="cm-operator">=</span> <span class="cm-variable">preprocess</span>(<span class="cm-variable">data</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">kmeans_smote</span> <span class="cm-operator">=</span> <span class="cm-variable">KMeansSMOTE</span>(<span class="cm-variable">cluster_balance_threshold</span><span class="cm-operator">=</span><span class="cm-number">0.064</span>, <span class="cm-variable">random_state</span><span class="cm-operator">=</span><span class="cm-number">42</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">X_train</span>, <span class="cm-variable">y_train</span> <span class="cm-operator">=</span> <span class="cm-variable">kmeans_smote</span>.<span class="cm-property">fit_resample</span>(<span class="cm-variable">X_train</span>, <span class="cm-variable">y_train</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">X_train</span>, <span class="cm-variable">X_test</span>, <span class="cm-variable">y_train</span>, <span class="cm-variable">y_test</span> <span class="cm-operator">=</span> <span class="cm-variable">train_test_split</span>(<span class="cm-variable">X_train</span>, <span class="cm-variable">y_train</span>, <span class="cm-variable">test_size</span><span class="cm-operator">=</span><span class="cm-number">0.2</span>, <span class="cm-variable">random_state</span><span class="cm-operator">=</span><span class="cm-number">42</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment"># -----------------------------MLP-----------------------------------#</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment"># 转换为张量</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">X_train</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">Tensor</span>(<span class="cm-variable">X_train</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">X_test</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">Tensor</span>(<span class="cm-variable">X_test</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">y_train</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">LongTensor</span>(<span class="cm-variable">y_train</span>.<span class="cm-property">values</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">y_test</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">LongTensor</span>(<span class="cm-variable">y_test</span>.<span class="cm-property">values</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">input_size</span> <span class="cm-operator">=</span> <span class="cm-variable">X_train</span>.<span class="cm-property">shape</span>[<span class="cm-number">1</span>] &nbsp;<span class="cm-comment"># 输入特征的维度</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">input_size_global</span> <span class="cm-operator">=</span> <span class="cm-variable">X_train</span>.<span class="cm-property">shape</span>[<span class="cm-number">1</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">hidden_size</span> <span class="cm-operator">=</span> <span class="cm-number">200</span> &nbsp;<span class="cm-comment"># 隐藏层的大小</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">num_classes</span> <span class="cm-operator">=</span> <span class="cm-number">6</span> &nbsp;<span class="cm-comment"># 类别数量</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">model</span> <span class="cm-operator">=</span> <span class="cm-variable">MLP</span>(<span class="cm-variable">input_size</span>, <span class="cm-variable">hidden_size</span>, <span class="cm-variable">num_classes</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment"># 定义损失函数和优化器</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">criterion</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">CrossEntropyLoss</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">optimizer</span> <span class="cm-operator">=</span> <span class="cm-variable">optim</span>.<span class="cm-property">Adam</span>(<span class="cm-variable">model</span>.<span class="cm-property">parameters</span>(), <span class="cm-variable">lr</span><span class="cm-operator">=</span><span class="cm-number">0.0001</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment"># 训练模型</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">num_epochs</span> <span class="cm-operator">=</span> <span class="cm-number">100</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">batch_size</span> <span class="cm-operator">=</span> <span class="cm-number">30</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">early_stopping</span> <span class="cm-operator">=</span> <span class="cm-variable">EarlyStopping</span>(<span class="cm-variable">patience</span><span class="cm-operator">=</span><span class="cm-number">5</span>, <span class="cm-variable">verbose</span><span class="cm-operator">=</span><span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">for</span> <span class="cm-variable">epoch</span> <span class="cm-keyword">in</span> <span class="cm-builtin">range</span>(<span class="cm-variable">num_epochs</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">permutation</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">randperm</span>(<span class="cm-variable">X_train</span>.<span class="cm-property">size</span>()[<span class="cm-number">0</span>])</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">for</span> <span class="cm-variable">i</span> <span class="cm-keyword">in</span> <span class="cm-builtin">range</span>(<span class="cm-number">0</span>, <span class="cm-variable">X_train</span>.<span class="cm-property">size</span>()[<span class="cm-number">0</span>], <span class="cm-variable">batch_size</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">indices</span> <span class="cm-operator">=</span> <span class="cm-variable">permutation</span>[<span class="cm-variable">i</span>:<span class="cm-variable">i</span> <span class="cm-operator">+</span> <span class="cm-variable">batch_size</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">batch_X</span>, <span class="cm-variable">batch_y</span> <span class="cm-operator">=</span> <span class="cm-variable">X_train</span>[<span class="cm-variable">indices</span>], <span class="cm-variable">y_train</span>[<span class="cm-variable">indices</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 前向传播</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">outputs</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">batch_X</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">loss</span> <span class="cm-operator">=</span> <span class="cm-variable">criterion</span>(<span class="cm-variable">outputs</span>, <span class="cm-variable">batch_y</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">predict</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">X_test</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">loss_test</span> <span class="cm-operator">=</span> <span class="cm-variable">criterion</span>(<span class="cm-variable">predict</span>, <span class="cm-variable">y_test</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 反向传播和优化</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">optimizer</span>.<span class="cm-property">zero_grad</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">loss</span>.<span class="cm-property">backward</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">optimizer</span>.<span class="cm-property">step</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 每个epoch打印损失</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">print</span>(<span class="cm-string">f"Epoch [</span>{<span class="cm-variable">epoch</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>}<span class="cm-string">/</span>{<span class="cm-variable">num_epochs</span>}<span class="cm-string">], Loss: </span>{<span class="cm-variable">loss</span>.<span class="cm-property">item</span>():<span class="cm-number">.4</span><span class="cm-variable">f</span>}<span class="cm-string">, Validate Loss: </span>{<span class="cm-variable">loss_test</span>.<span class="cm-property">item</span>():<span class="cm-number">.4</span><span class="cm-variable">f</span>}<span class="cm-string">"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">train_loss_list</span>.<span class="cm-property">append</span>(<span class="cm-variable">loss</span>.<span class="cm-property">item</span>())</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">test_loss_list</span>.<span class="cm-property">append</span>(<span class="cm-variable">loss_test</span>.<span class="cm-property">item</span>())</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># early_stopping(loss.item(), model, val_features, 'checkpoint.pt')</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 在测试集上进行评估</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">with</span> <span class="cm-variable">torch</span>.<span class="cm-property">no_grad</span>():</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">outputs</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">X_test</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">_</span>, <span class="cm-variable">predicted</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">max</span>(<span class="cm-variable">outputs</span>.<span class="cm-property">data</span>, <span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">accuracy</span> <span class="cm-operator">=</span> (<span class="cm-variable">predicted</span> <span class="cm-operator">==</span> <span class="cm-variable">y_test</span>).<span class="cm-property">sum</span>().<span class="cm-property">item</span>() <span class="cm-operator">/</span> <span class="cm-variable">y_test</span>.<span class="cm-property">size</span>(<span class="cm-number">0</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">print</span>(<span class="cm-string">f"Test Accuracy: </span>{<span class="cm-variable">accuracy</span>:<span class="cm-number">.4</span><span class="cm-variable">f</span>}<span class="cm-string">"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">val_loss</span> <span class="cm-operator">=</span> <span class="cm-variable">criterion</span>(<span class="cm-variable">outputs</span>,<span class="cm-variable">y_test</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">early_stopping</span>(<span class="cm-variable">val_loss</span>,<span class="cm-variable">model</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">early_stopping</span>.<span class="cm-property">early_stop</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">print</span>(<span class="cm-string">"early stop"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">break</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment"># 在测试集上进行评估</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">with</span> <span class="cm-variable">torch</span>.<span class="cm-property">no_grad</span>():</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">outputs</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">X_test</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">_</span>, <span class="cm-variable">predicted</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">max</span>(<span class="cm-variable">outputs</span>.<span class="cm-property">data</span>, <span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">accuracy</span> <span class="cm-operator">=</span> (<span class="cm-variable">predicted</span> <span class="cm-operator">==</span> <span class="cm-variable">y_test</span>).<span class="cm-property">sum</span>().<span class="cm-property">item</span>() <span class="cm-operator">/</span> <span class="cm-variable">y_test</span>.<span class="cm-property">size</span>(<span class="cm-number">0</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">print</span>(<span class="cm-string">f"Test Accuracy: </span>{<span class="cm-variable">accuracy</span>:<span class="cm-number">.4</span><span class="cm-variable">f</span>}<span class="cm-string">"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">label_count_dict</span> <span class="cm-operator">=</span> [<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">for</span> <span class="cm-variable">value</span> <span class="cm-keyword">in</span> <span class="cm-variable">data</span>[<span class="cm-string">'label'</span>]:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">label_count_dict</span>[<span class="cm-variable">value</span>] <span class="cm-operator">+=</span> <span class="cm-number">1</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">val_features</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">X_test</span>, <span class="cm-variable">return_features</span><span class="cm-operator">=</span><span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">val_features_tsne</span> <span class="cm-operator">=</span> <span class="cm-variable">TSNE</span>(<span class="cm-variable">n_components</span><span class="cm-operator">=</span><span class="cm-number">2</span>, <span class="cm-variable">random_state</span><span class="cm-operator">=</span><span class="cm-number">33</span>, <span class="cm-variable">init</span><span class="cm-operator">=</span><span class="cm-string">'pca'</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-variable">learning_rate</span><span class="cm-operator">=</span><span class="cm-string">'auto'</span>).<span class="cm-property">fit_transform</span>(</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">val_features</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">font</span> <span class="cm-operator">=</span> {<span class="cm-string">"color"</span>: <span class="cm-string">"darkred"</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"size"</span>: <span class="cm-number">13</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"family"</span>: <span class="cm-string">"serif"</span>}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">style</span>.<span class="cm-property">use</span>(<span class="cm-string">"dark_background"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">figure</span>(<span class="cm-variable">figsize</span><span class="cm-operator">=</span>(<span class="cm-number">9</span>, <span class="cm-number">8</span>)) &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">scatter</span>(<span class="cm-variable">val_features_tsne</span>[:, <span class="cm-number">0</span>], <span class="cm-variable">val_features_tsne</span>[:, <span class="cm-number">1</span>], <span class="cm-variable">c</span><span class="cm-operator">=</span><span class="cm-variable">y_test</span>.<span class="cm-property">cpu</span>().<span class="cm-property">numpy</span>(), <span class="cm-variable">alpha</span><span class="cm-operator">=</span><span class="cm-number">0.6</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">cmap</span><span class="cm-operator">=</span><span class="cm-variable">plt</span>.<span class="cm-property">cm</span>.<span class="cm-property">get_cmap</span>(<span class="cm-string">'rainbow'</span>, <span class="cm-variable">num_classes</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">title</span>(<span class="cm-string">"t-SNE"</span>, <span class="cm-variable">fontdict</span><span class="cm-operator">=</span><span class="cm-variable">font</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">cbar</span> <span class="cm-operator">=</span> <span class="cm-variable">plt</span>.<span class="cm-property">colorbar</span>(<span class="cm-variable">ticks</span><span class="cm-operator">=</span><span class="cm-builtin">range</span>(<span class="cm-variable">num_classes</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">cbar</span>.<span class="cm-property">set_label</span>(<span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-string">'Class label'</span>, <span class="cm-variable">fontdict</span><span class="cm-operator">=</span><span class="cm-variable">font</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">clim</span>(<span class="cm-operator">-</span><span class="cm-number">0.5</span>, <span class="cm-variable">num_classes</span> <span class="cm-operator">-</span> <span class="cm-number">0.5</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">tight_layout</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">savefig</span>(<span class="cm-variable">file_basic_path</span> <span class="cm-operator">+</span> <span class="cm-string">f'_tsne.png'</span>, <span class="cm-variable">dpi</span><span class="cm-operator">=</span><span class="cm-number">300</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">result</span> <span class="cm-operator">=</span> {<span class="cm-string">"train_losses"</span>: <span class="cm-variable">train_loss_list</span>, <span class="cm-string">"val_losses"</span>: <span class="cm-variable">test_loss_list</span>, <span class="cm-string">"label_counts"</span>: <span class="cm-variable">label_count_dict</span>}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">torch</span>.<span class="cm-property">save</span>(<span class="cm-variable">model</span>.<span class="cm-property">state_dict</span>(), <span class="cm-variable">file_basic_path</span> <span class="cm-operator">+</span> <span class="cm-string">'_model.pth'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">model_path</span> <span class="cm-operator">=</span> <span class="cm-variable">file_basic_path</span> <span class="cm-operator">+</span> <span class="cm-string">'_model.pth'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">result</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 2195px;"></div><div class="CodeMirror-gutters" style="display: none; height: 2195px;"></div></div></div></pre><h3 id='46-调用模型进行预测'><span>4.6 调用模型进行预测</span></h3><blockquote><p><span>代码中涉及到</span><code>t-SNE</code><span>算法的部分，将在</span><code>六、结果分析</code><span>的分析进行详解。</span></p></blockquote><p><span>在我们的代码中，调用模型进行预测的流程如下：</span></p><p><span>首先，它使用pandas的</span><code>read_csv</code><span>函数从</span><code>input_path</code><span>读取数据，然后对数据进行预处理。预处理的具体步骤在这段代码中并未给出，但通常包括数据清洗、缺失值处理、数据标准化等步骤。</span></p><p><span>接着，它定义了一个多层感知器（</span><code>MLP</code><span>）模型。这个模型有一个输入层，一个隐藏层和一个输出层。输入层的大小由全局变量</span><code>input_size_global</code><span>决定，隐藏层的大小为200，输出层的大小为6，这意味着模型可以预测6个不同的类别。</span></p><p><span>然后，它从</span><code>model_path</code><span>加载预训练的模型参数，并使用这些参数对数据进行预测。预测的结果是一个概率分布，表示数据属于每个类别的概率。</span><code>torch.max</code><span>函数用于找到概率最大的类别作为预测结果。</span></p><p><span>之后，它统计了每个类别的预测数量，并将预测结果保存到一个json文件中。这个文件的路径由</span><code>file_basic_path</code><span>和固定的字符串</span><code>&#39;_predicted.json&#39;</code><span>拼接而成。</span></p><p><span>接下来，它使用</span><code>t-SNE</code><span>算法对模型的特征进行降维，并将降维后的特征可视化。在这个过程中，它首先获取模型的特征，然后使用</span><code>t-SNE</code><span>算法将特征降到2维，最后使用</span><code>matplotlib</code><span>库将降维后的特征绘制成散点图。在这个散点图中，每个点的颜色表示它的类别。</span></p><p><span>最后，它返回一个字典，其中包含每个类别的预测数量。</span></p><p><span>这段代码的主要作用是对输入的数据进行预测，并将预测结果以及一些相关信息保存到文件中。同时，它还对模型的特征进行了可视化，这有助于我们理解模型的预测结果。</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 25.9899px; left: 27.9896px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">test</span>(<span class="cm-variable">input_path</span>, <span class="cm-variable">file_basic_path</span>, <span class="cm-variable">output_path</span>):</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">global</span> <span class="cm-variable">input_size_global</span>, <span class="cm-variable">model_path</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">data</span> <span class="cm-operator">=</span> <span class="cm-variable">pd</span>.<span class="cm-property">read_csv</span>(<span class="cm-variable">input_path</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">data</span> <span class="cm-operator">=</span> <span class="cm-variable">test_preprocess</span>(<span class="cm-variable">data</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">input_size</span> <span class="cm-operator">=</span> <span class="cm-variable">input_size_global</span> &nbsp;<span class="cm-comment"># 输入特征的维度</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">hidden_size</span> <span class="cm-operator">=</span> <span class="cm-number">200</span> &nbsp;<span class="cm-comment"># 隐藏层的大小</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">num_classes</span> <span class="cm-operator">=</span> <span class="cm-number">6</span> &nbsp;<span class="cm-comment"># 类别数量</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">model</span> <span class="cm-operator">=</span> <span class="cm-variable">MLP</span>(<span class="cm-variable">input_size</span>, <span class="cm-variable">hidden_size</span>, <span class="cm-variable">num_classes</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">model</span>.<span class="cm-property">load_state_dict</span>(<span class="cm-variable">torch</span>.<span class="cm-property">load</span>(<span class="cm-variable">model_path</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">with</span> <span class="cm-variable">torch</span>.<span class="cm-property">no_grad</span>():</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">data</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">Tensor</span>(<span class="cm-variable">data</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">outputs</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">data</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">_</span>, <span class="cm-variable">predicted</span> <span class="cm-operator">=</span> <span class="cm-variable">torch</span>.<span class="cm-property">max</span>(<span class="cm-variable">outputs</span>.<span class="cm-property">data</span>, <span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">label_count_list</span> <span class="cm-operator">=</span> [<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">for</span> <span class="cm-variable">value</span> <span class="cm-keyword">in</span> <span class="cm-variable">predicted</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">label_count_list</span>[<span class="cm-variable">value</span>] <span class="cm-operator">+=</span> <span class="cm-number">1</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">result_dict</span> <span class="cm-operator">=</span> {}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">predicted_new</span> <span class="cm-operator">=</span> <span class="cm-variable">predicted</span>.<span class="cm-property">tolist</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">for</span> <span class="cm-variable">i</span>, <span class="cm-variable">value</span> <span class="cm-keyword">in</span> <span class="cm-builtin">enumerate</span>(<span class="cm-variable">predicted_new</span>, <span class="cm-variable">start</span><span class="cm-operator">=</span><span class="cm-number">1</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">result_dict</span>[<span class="cm-builtin">str</span>(<span class="cm-variable">i</span>)] <span class="cm-operator">=</span> <span class="cm-variable">value</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">with</span> <span class="cm-builtin">open</span>(<span class="cm-variable">file_basic_path</span> <span class="cm-operator">+</span> <span class="cm-string">'_predicted.json'</span>, <span class="cm-string">'w'</span>) <span class="cm-keyword">as</span> <span class="cm-variable">json_file</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">json</span>.<span class="cm-property">dump</span>(<span class="cm-variable">result_dict</span>, <span class="cm-variable">json_file</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">result</span> <span class="cm-operator">=</span> {<span class="cm-string">"label_counts"</span>: <span class="cm-variable">label_count_list</span>}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">val_features</span> <span class="cm-operator">=</span> <span class="cm-variable">model</span>(<span class="cm-variable">data</span>, <span class="cm-variable">return_features</span><span class="cm-operator">=</span><span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">val_features_tsne</span> <span class="cm-operator">=</span> <span class="cm-variable">TSNE</span>(<span class="cm-variable">n_components</span><span class="cm-operator">=</span><span class="cm-number">2</span>, <span class="cm-variable">random_state</span><span class="cm-operator">=</span><span class="cm-number">33</span>, <span class="cm-variable">init</span><span class="cm-operator">=</span><span class="cm-string">'pca'</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-variable">learning_rate</span><span class="cm-operator">=</span><span class="cm-string">'auto'</span>).<span class="cm-property">fit_transform</span>(</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">val_features</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">font</span> <span class="cm-operator">=</span> {<span class="cm-string">"color"</span>: <span class="cm-string">"darkred"</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"size"</span>: <span class="cm-number">13</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"family"</span>: <span class="cm-string">"serif"</span>}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">style</span>.<span class="cm-property">use</span>(<span class="cm-string">"dark_background"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">figure</span>(<span class="cm-variable">figsize</span><span class="cm-operator">=</span>(<span class="cm-number">9</span>, <span class="cm-number">8</span>)) &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">scatter</span>(<span class="cm-variable">val_features_tsne</span>[:, <span class="cm-number">0</span>], <span class="cm-variable">val_features_tsne</span>[:, <span class="cm-number">1</span>], <span class="cm-variable">c</span><span class="cm-operator">=</span><span class="cm-variable">predicted</span>.<span class="cm-property">cpu</span>().<span class="cm-property">numpy</span>(), <span class="cm-variable">alpha</span><span class="cm-operator">=</span><span class="cm-number">0.6</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">cmap</span><span class="cm-operator">=</span><span class="cm-variable">plt</span>.<span class="cm-property">cm</span>.<span class="cm-property">get_cmap</span>(<span class="cm-string">'rainbow'</span>, <span class="cm-variable">num_classes</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">title</span>(<span class="cm-string">"t-SNE"</span>, <span class="cm-variable">fontdict</span><span class="cm-operator">=</span><span class="cm-variable">font</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">cbar</span> <span class="cm-operator">=</span> <span class="cm-variable">plt</span>.<span class="cm-property">colorbar</span>(<span class="cm-variable">ticks</span><span class="cm-operator">=</span><span class="cm-builtin">range</span>(<span class="cm-variable">num_classes</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">cbar</span>.<span class="cm-property">set_label</span>(<span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-string">'Class label'</span>, <span class="cm-variable">fontdict</span><span class="cm-operator">=</span><span class="cm-variable">font</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">clim</span>(<span class="cm-operator">-</span><span class="cm-number">0.5</span>, <span class="cm-variable">num_classes</span> <span class="cm-operator">-</span> <span class="cm-number">0.5</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">tight_layout</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">plt</span>.<span class="cm-property">savefig</span>(<span class="cm-variable">file_basic_path</span> <span class="cm-operator">+</span> <span class="cm-string">f'_tsne.png'</span>, <span class="cm-variable">dpi</span><span class="cm-operator">=</span><span class="cm-number">300</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">result</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 1008px;"></div><div class="CodeMirror-gutters" style="display: none; height: 1008px;"></div></div></div></pre><p><span>## </span></p><h2 id='五原理分析'><span>五、原理分析</span></h2><h3 id='1-深度学习与神经网络'><span>1. 深度学习与神经网络</span></h3><p><span>深度学习是机器学习的一个分支，它试图模拟人脑的工作原理，通过训练大量的数据来学习数据的内在规律和表示。在深度学习中，最基本的单元是神经元，这是受到生物神经元的启发而设计的。在人工神经网络中，神经元通过连接和权重将输入信号转化为输出信号。一个深度神经网络由多个这样的神经元层叠加而成。</span></p><h3 id='2-多层感知机-mlp'><span>2. 多层感知机 (MLP)</span></h3><p><span>在一些任务中，最常用的深度学习模型类型是多层感知机（MLP）。MLP是一种前向结构的人工神经网络，映射一组输入向量到一组输出向量。MLP由多个层级组成，每个层级都完全连接到下一个层级。在MLP中，最后一个层级是输出层，而除输入层外的其它层级都是隐藏层。</span></p><h3 id='3-激活函数'><span>3. 激活函数</span></h3><p><code>ReLU</code><span>（Rectified Linear Unit）是深度学习中常用的一种激活函数。它的公式是：</span></p><div contenteditable="false" spellcheck="false" class="mathjax-block md-end-block md-math-block md-rawblock" id="mathjax-n164" cid="n164" mdtype="math_block" data-math-tag-before="0" data-math-tag-after="0" data-math-labels="[]"><div class="md-rawblock-container md-math-container" tabindex="-1"><mjx-container class="MathJax" jax="SVG" display="true" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="16.718ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 7389.2 1000" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.566ex;"><defs><path id="MJX-1-TEX-I-1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path><path id="MJX-1-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-1-TEX-I-1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-1-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-1-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-1-TEX-N-6D" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q351 442 364 440T387 434T406 426T421 417T432 406T441 395T448 384T452 374T455 366L457 361L460 365Q463 369 466 373T475 384T488 397T503 410T523 422T546 432T572 439T603 442Q729 442 740 329Q741 322 741 190V104Q741 66 743 59T754 49Q775 46 803 46H819V0H811L788 1Q764 2 737 2T699 3Q596 3 587 0H579V46H595Q656 46 656 62Q657 64 657 200Q656 335 655 343Q649 371 635 385T611 402T585 404Q540 404 506 370Q479 343 472 315T464 232V168V108Q464 78 465 68T468 55T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path><path id="MJX-1-TEX-N-61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z"></path><path id="MJX-1-TEX-N-78" d="M201 0Q189 3 102 3Q26 3 17 0H11V46H25Q48 47 67 52T96 61T121 78T139 96T160 122T180 150L226 210L168 288Q159 301 149 315T133 336T122 351T113 363T107 370T100 376T94 379T88 381T80 383Q74 383 44 385H16V431H23Q59 429 126 429Q219 429 229 431H237V385Q201 381 201 369Q201 367 211 353T239 315T268 274L272 270L297 304Q329 345 329 358Q329 364 327 369T322 376T317 380T310 384L307 385H302V431H309Q324 428 408 428Q487 428 493 431H499V385H492Q443 385 411 368Q394 360 377 341T312 257L296 236L358 151Q424 61 429 57T446 50Q464 46 499 46H516V0H510H502Q494 1 482 1T457 2T432 2T414 3Q403 3 377 3T327 1L304 0H295V46H298Q309 46 320 51T331 63Q331 65 291 120L250 175Q249 174 219 133T185 88Q181 83 181 74Q181 63 188 55T206 46Q208 46 208 23V0H201Z"></path><path id="MJX-1-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path id="MJX-1-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D453" xlink:href="#MJX-1-TEX-I-1D453"></use></g><g data-mml-node="mo" transform="translate(550,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(939,0)"><use data-c="1D465" xlink:href="#MJX-1-TEX-I-1D465"></use></g><g data-mml-node="mo" transform="translate(1511,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(2177.8,0)"><use data-c="3D" xlink:href="#MJX-1-TEX-N-3D"></use></g><g data-mml-node="mo" transform="translate(3233.6,0)"><use data-c="6D" xlink:href="#MJX-1-TEX-N-6D"></use><use data-c="61" xlink:href="#MJX-1-TEX-N-61" transform="translate(833,0)"></use><use data-c="78" xlink:href="#MJX-1-TEX-N-78" transform="translate(1333,0)"></use></g><g data-mml-node="mo" transform="translate(5094.6,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(5483.6,0)"><use data-c="30" xlink:href="#MJX-1-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(5983.6,0)"><use data-c="2C" xlink:href="#MJX-1-TEX-N-2C"></use></g><g data-mml-node="mi" transform="translate(6428.2,0)"><use data-c="1D465" xlink:href="#MJX-1-TEX-I-1D465"></use></g><g data-mml-node="mo" transform="translate(7000.2,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mo data-mjx-texclass="OP" movablelimits="true">max</mo><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></div></div><p><code>ReLU</code><span>函数有一个很好的特性，那就是它能够在训练深度神经网络时帮助缓解梯度消失问题。这是因为</span><code>ReLU</code><span>函数在输入大于0时，其梯度始终为1。因此，对于深度模型，ReLU函数可以保证反向传播时梯度不会消失，从而有效地更新模型的参数。</span></p><h3 id='4-损失函数和优化器'><span>4. 损失函数和优化器</span></h3><p><span>在神经网络的训练过程中，我们需要有一种方式来度量模型的表现。这就是所谓的损失函数，它可以量化模型的预测结果与真实结果之间的差距。在这个项目中，我们使用的是交叉熵损失函数，它是分类问题中常用的损失函数。</span></p><p><span>优化器是用来更新和调整模型参数以最小化损失函数的工具。在这个项目中，我们使用的是 Adam 优化器。Adam 是一种自适应的学习率优化算法，它结合了动量优化和 RMSProp 的思想。</span></p><h3 id='5-数据预处理'><span>5. 数据预处理</span></h3><p><span>在训练MLP模型时，对输入数据进行预处理是非常重要的。常见的预处理步骤包括标准化（使输入数据的每一特征都有相同的尺度）、缺失值处理（填充或删除缺失值）以及类别编码（将类别变量转化为数值变量）。预处理步骤可以帮助提高模型的性能和稳定性。</span></p><h2 id='六结果分析'><span>六、结果分析</span></h2><h3 id='t-sne分析'><span>t-SNE分析</span></h3><p><span>t-SNE（t-Distributed Stochastic Neighbor Embedding）是一种用于数据可视化的机器学习算法。它是一种降维技术，特别适合用于高维数据的可视化。t-SNE的主要目标是在低维空间（通常是二维或三维）中保留高维空间中的相似性结构。</span></p><p><span>以下是对t-SNE的基本介绍：</span></p><ol start='' ><li><p><strong><span>工作原理</span></strong><span>：t-SNE首先在高维空间中计算数据点之间的相似度，然后在低维空间中创建一个概率分布，使得低维空间中的点的相似度尽可能接近高维空间中的相似度。这样，高维空间中相似的点在低维空间中也会相似。</span></p></li><li><p><strong><span>优点</span></strong><span>：t-SNE相比于其他降维方法（如PCA）的优点在于，它能更好地保留局部结构。这意味着在高维空间中相互靠近的点在低维空间中也会靠近。这使得t-SNE非常适合用于数据可视化。</span></p></li><li><p><strong><span>缺点</span></strong><span>：t-SNE的一个主要缺点是它可能不会很好地保留全局结构。也就是说，高维空间中远离的点在低维空间中可能不会远离。此外，t-SNE的结果也可能对初始参数（如随机种子）敏感。</span></p></li><li><p><strong><span>应用</span></strong><span>：t-SNE广泛应用于各种领域，包括机器学习、数据挖掘、信息检索和生物信息学等。它常常用于探索性数据分析，以帮助研究人员理解高维数据的结构。</span></p></li><li><p><strong><span>算法步骤</span></strong><span>：</span></p><ul><li><p><span>在高维空间中计算点之间的条件概率，使得相似的对象有更高的概率被选中。</span></p></li><li><p><span>在低维空间中定义相似的条件概率，并最小化两个条件概率分布的KL散度。</span></p></li><li><p><span>通过梯度下降等优化方法，找到最佳的低维空间表示。</span></p></li></ul></li></ol><p><span>以上是对t-SNE的基本介绍，如果你需要更详细的信息或者具体的使用方法，我可以提供更多的帮助。</span></p><h3 id='模型性能分析'><span>模型性能分析</span></h3><ul><li><p><span>模型大小：我们的模型大小为49kb，这是一个非常轻量级的模型，可以在各种设备上快速运行。</span></p></li><li><p><span>性能分析：我们通过F1评估指标对模型的性能进行了详细的分析。从F1评估指标可以看出，我们的模型在各个故障类别上的表现情况。例如，故障类别0的F1评估指标为0.80，准确率为0.72，召回率为0.90，这表明模型在识别故障类别0时具有较好的性能。然而，对于故障类别1和2，模型的性能相对较差，可能需要进一步优化。</span></p></li></ul><h3 id='误差分析'><span>误差分析</span></h3><ul><li><p><span>误识别情况：我们通过F1评估指标对模型的误识别情况进行了详细的分析。从F1评估指标可以看出，我们的模型在识别某些故障类别时存在误识别和漏识别的问题。例如，故障类别1的F1评估指标较低，可能是由于准确率和召回率都不高，表明模型在识别故障类别1时容易出现误识别和漏识别的问题。另外，故障类别2的F1评估指标也相对较低，主要是由于准确率较低，说明模型在识别故障类别2时容易产生误识别的问题。</span></p></li></ul><h3 id='结论与建议'><span>结论与建议</span></h3><p><span>综合考虑模型的性能分析和误差分析，我们得出以下结论和建议：</span></p><ol start='' ><li><p><span>故障类别0、3、4和5的性能表现较好，模型能够较为准确地识别这些故障类型，但仍有优化的空间。</span></p></li><li><p><span>故障类别1和2的性能相对较差，可能需要增加样本量或进行数据增强，以提高模型对这些故障的识别能力。</span></p></li><li><p><span>我们需要进一步优化模型的特征选择和超参数调整，以提高模型的整体性能和泛化能力。</span></p></li><li><p><span>我们需要继续收集更多的真实故障数据，以进一步改进模型的训练效果。</span></p></li><li><p><span>对于特定故障类型的误识别和漏识别问题，我们可以考虑引入更多的相关特征，或者尝试其他的机器学习或深度学习模型。</span></p></li></ol><p><span>通过不断的优化和改进，我们有望提高模型的准确性和可靠性，进一步支持分布式系统的高效运维，提供更好的故障诊断服务。</span></p></div></div>
+</body>
+</html>
