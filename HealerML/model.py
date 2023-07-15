@@ -1,3 +1,4 @@
+import json
 import warnings
 import numpy as np
 import pandas as pd
@@ -13,12 +14,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-
-
-
-
 warnings.filterwarnings('ignore')
 
+input_size_global = 0
+model_path = ''
 
 def preprocess(data):
     # 去掉重复值
@@ -36,6 +35,18 @@ def preprocess(data):
     scaler = StandardScaler()
     data_standerd = scaler.fit_transform(data_imputed)
     return data_standerd, y
+
+def test_preprocess(data):
+    # 填充缺失值
+    imputer = IterativeImputer(random_state=0)
+    # data_imputed = imputer.fit_transform(data_cleaned)
+    data_imputed = imputer.fit_transform(data)
+    data_imputed = pd.DataFrame(data_imputed, columns=data.columns)
+    data_imputed = data_imputed.dropna()
+    # 标准化
+    scaler = StandardScaler()
+    data_standerd = scaler.fit_transform(data_imputed)
+    return data_standerd
 
 class MLP(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
@@ -93,6 +104,7 @@ class EarlyStopping:
 
 
 def train(input_path, file_basic_path, output_path):
+    global input_size_global, model_path
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_loss_list = []
     test_loss_list = []
@@ -108,6 +120,7 @@ def train(input_path, file_basic_path, output_path):
     y_train = torch.LongTensor(y_train.values)
     y_test = torch.LongTensor(y_test.values)
     input_size = X_train.shape[1]  # 输入特征的维度
+    input_size_global = X_train.shape[1]
     hidden_size = 200  # 隐藏层的大小
     num_classes = 6  # 类别数量
     model = MLP(input_size, hidden_size, num_classes)
@@ -190,5 +203,48 @@ def train(input_path, file_basic_path, output_path):
     plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
 
     result = {"train_losses": train_loss_list, "val_losses": test_loss_list, "label_counts": label_count_dict}
+    torch.save(model.state_dict(), file_basic_path + '_model.pth')
+    model_path = file_basic_path + '_model.pth'
+    return result
 
+def test(input_path, file_basic_path, output_path):
+    global input_size_global, model_path
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    train_loss_list = []
+    test_loss_list = []
+    data = pd.read_csv(input_path)
+    data = test_preprocess(data)
+    input_size = input_size_global  # 输入特征的维度
+    hidden_size = 200  # 隐藏层的大小
+    num_classes = 6  # 类别数量
+    model = MLP(input_size, hidden_size, num_classes)
+    model.load_state_dict(torch.load(model_path))
+    with torch.no_grad():
+        data = torch.Tensor(data)
+        outputs = model(data)
+        _, predicted = torch.max(outputs.data, 1)
+    counts = torch.bincount(predicted)
+    label_count_list = counts.tolist()
+    # tsne = TSNE(n_components=2, random_state=0)
+    # X_test_tsne = tsne.fit_transform(predicted)
+    # font = {"color": "darkred",
+    #         "size": 13,
+    #         "family": "serif"}
+    # plt.style.use("dark_background")
+    # plt.figure(figsize=(9, 8))
+    # plt.scatter(X_test_tsne[:, 0], X_test_tsne[:, 1], c=predicted, alpha=0.6,
+    #             cmap=plt.cm.get_cmap('rainbow', num_classes))
+    # plt.title("t-SNE", fontdict=font)
+    # cbar = plt.colorbar(ticks=range(num_classes))
+    # cbar.set_label(label='Class label', fontdict=font)
+    # plt.clim(-0.5, num_classes - 0.5)
+    # plt.tight_layout()
+    # plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
+    result_dict = {}
+    predicted = predicted.tolist()
+    for i, value in enumerate(predicted, start=1):
+        result_dict[str(i)] = value
+    with open(file_basic_path + '_predicted.json', 'w') as json_file:
+        json.dump(result_dict, json_file)
+    result = {"label_counts": label_count_list}
     return result
