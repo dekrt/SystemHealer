@@ -7,10 +7,11 @@ from . import model
 # Change the extensions to accept only CSV files
 extensions = ['.csv']
 is_training = True
+model_path = ''
 
 
 def index(request):
-    global is_training
+    global is_training, model_path
     if request.method == 'POST' and request.FILES['data']:
         data_file = request.FILES['data']
         ext = os.path.splitext(data_file.name)[1]
@@ -22,14 +23,11 @@ def index(request):
 
             input_path = os.getcwd() + uploaded_file_url
             file_basic_path = os.getcwd() + "/uploads/" + file_name.split(".")[0]
-            output_path = os.getcwd() + "/uploads/" + file_name.split(".")[0] + "_processed.json"
-            model_path = file_basic_path + "_model.pth"
-            print('pwd: ', os.getcwd(), '\n input_path: ', input_path,
-                 '\n file_basic_path', file_basic_path, '\n output_path:', output_path )
-            print('No. 1: ', is_training)
+            output_path = os.getcwd() + "/uploads/" + file_name.split(".")[0] + "_predicted.json"
             if is_training:  # Train the model if it doesn't exist.
                 result = model.train(input_path, file_basic_path, output_path)
                 uploads_path = uploaded_file_url.split(".")[0]
+                model_path = file_basic_path + "_model.pth"
                 model_download_link = '/download_model/' + os.path.basename(model_path)
                 is_training = False  # Next time, we will do prediction.
                 print('No. 2: ', is_training)
@@ -49,7 +47,7 @@ def index(request):
                 is_training = True  # Next time, we will do training.
                 print(result['label_counts'])
                 return render(request, 'HealerML/index.html', {"model_download_link": model_download_link,
-                                                                "uploads_path": uploads_path,
+                                                               "uploads_path": uploads_path,
                                                                "file_basic_path": file_basic_path,
                                                                "download_link": download_link,
                                                                "label_counts": result["label_counts"]
@@ -57,40 +55,6 @@ def index(request):
         else:
             return HttpResponse("Only Allowed extensions are {}".format(extensions))
     return render(request, 'HealerML/index.html')
-
-# def index(request):
-#     if request.method == 'POST' and request.FILES['data']:
-#         data_file = request.FILES['data']
-#         ext = os.path.splitext(data_file.name)[1]
-#         if ext.lower() in extensions:
-#             fs = FileSystemStorage()
-#             filename = fs.save(data_file.name, data_file)
-#             uploaded_file_url = fs.url(filename)
-#             file_name = uploaded_file_url.split("/")[2]
-#
-#             input_path = os.getcwd() + uploaded_file_url
-#             basic_path = os.getcwd() + "/uploads/" + file_name.split(".")[0]
-#             output_path = os.getcwd() + "/uploads/" + file_name.split(".")[0] + "_processed.csv"
-#
-#             # remover.process(input_path, output_path)
-#             model.preprocess(input_path, input_path)
-#             result = model.train(input_path, basic_path, output_path)
-#             uploads_path = uploaded_file_url.split(".")[0]
-#             data_file_path = uploaded_file_url.split(".")[0] + "_processed.csv"
-#             download_link = '/download/' + os.path.basename(output_path)
-#             model_download_link = '/download_model/' + os.path.basename(os.getcwd() + "/model/resnet.pt")
-#             return render(request, 'HealerML/index.html', {"data_file_path": data_file_path,
-#                                                            "download_link": download_link,
-#                                                            "model_download_link": model_download_link,
-#                                                            "uploads_path": uploads_path,
-#                                                            "train_loss": result["train_losses"],
-#                                                            "val_loss": result["val_losses"],
-#                                                            "label_counts": result["label_counts"]
-#                                                            })
-#         else:
-#             return HttpResponse("Only Allowed extensions are {}".format(extensions))
-#     return render(request, 'HealerML/index.html')
-
 
 def data(request):
     if request.method == 'POST' and request.POST['data']:
@@ -102,12 +66,12 @@ def data(request):
             f.write(data)
 
         input_path = os.getcwd() + "/uploads/" + data_file_name
-        output_path = os.getcwd() + "/uploads/" + data_file_name.split(".")[0] + "_processed.csv"
+        output_path = os.getcwd() + "/uploads/" + data_file_name.split(".")[0] + "_predicted.csv"
 
 
         model.preprocess(input_path, input_path)
         result = model.train(input_path, output_path)
-        data_file_path = "/uploads/" + data_file_name.split(".")[0] + "_processed.csv"
+        data_file_path = "/uploads/" + data_file_name.split(".")[0] + "_predicted.csv"
         return HttpResponse(request.get_host() + data_file_path)
 
 

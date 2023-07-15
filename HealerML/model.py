@@ -108,7 +108,7 @@ def train(input_path, file_basic_path, output_path):
     test_loss_list = []
     data = pd.read_csv(input_path)
     X_train, y_train = preprocess(data)
-    kmeans_smote = KMeansSMOTE(random_state=42)
+    kmeans_smote = KMeansSMOTE(cluster_balance_threshold=0.064, random_state=42)
     X_train, y_train = kmeans_smote.fit_resample(X_train, y_train)
     X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
     # -----------------------------MLP-----------------------------------#
@@ -198,24 +198,6 @@ def train(input_path, file_basic_path, output_path):
     plt.clim(-0.5, num_classes - 0.5)
     plt.tight_layout()
     plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
-    # tsne = TSNE(n_components=2, random_state=0)
-    # X_test_tsne = tsne.fit_transform(X_test)
-    # font = {"color": "darkred",
-    #         "size": 13,
-    #         "family": "serif"}
-
-    # plt.style.use("dark_background")
-    # plt.figure(figsize=(9, 8))
-
-    # plt.scatter(X_test_tsne[:, 0], X_test_tsne[:, 1], c=predicted, alpha=0.6,
-    #             cmap=plt.cm.get_cmap('rainbow', num_classes))
-    # plt.title("t-SNE", fontdict=font)
-    # cbar = plt.colorbar(ticks=range(num_classes))
-    # cbar.set_label(label='Class label', fontdict=font)
-    # plt.clim(-0.5, num_classes - 0.5)
-    # plt.tight_layout()
-    # plt.savefig(file_basic_path + f'_tsne.png', dpi=300)
-
     result = {"train_losses": train_loss_list, "val_losses": test_loss_list, "label_counts": label_count_dict}
     torch.save(model.state_dict(), file_basic_path + '_model.pth')
     model_path = file_basic_path + '_model.pth'
